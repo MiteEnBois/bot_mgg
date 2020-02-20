@@ -21,10 +21,10 @@ from dotenv import load_dotenv
 global NATION, PASSWORD, GUILD_ID, GUILD, CHANNEL_ISSUES_ID, CHANNEL, ISSUES, PATH, EMOJI, UPDATE, COOLDOWN_VOTE, RAPPEL
 global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, ROLE_PING, CURRENT_ID
 
-UPDATE = 30
-COOLDOWN_VOTE = 60*60*5
-RAPPEL = 60*60
-MIN_BEFORE_COOLDOWN = 5
+UPDATE = 2
+COOLDOWN_VOTE = 10
+RAPPEL = 5
+MIN_BEFORE_COOLDOWN = 1
 CURRENT_ID = 0
 CHANNEL = None
 GUILD = None
@@ -63,7 +63,7 @@ async def on_ready():
     print(f'{bot.user} is connected to the following guild:')
     for guild in bot.guilds:
         print(f'-{guild.name}')
-    print(f'{bot.user} has started')
+    print(f'{bot.user} has started (version debug)')
 
 
 def backup():
@@ -178,16 +178,16 @@ async def start_vote(ctx):
 
 
 async def launch_issue(issue, option):
-    response = requests.get(
-        f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&c=issue&issue={issue}&option={option}",
-        headers={
-            'User-Agent': 'Controlistania Discord Bot - owner:timothee.bouvin@gmail.com',
-            'X-Password': PASSWORD
-        },
-    )
-    print(response.text)
-    n = defusedxml.ElementTree.fromstring(response.text)
-    return n
+    # response = requests.get(
+    #     f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&c=issue&issue={issue}&option={option}",
+    #     headers={
+    #         'User-Agent': 'Controlistania Discord Bot - owner:timothee.bouvin@gmail.com',
+    #         'X-Password': PASSWORD
+    #     },
+    # )
+    # n = defusedxml.ElementTree.fromstring(response.text)
+    # return n
+    return RESULTS_XML
 
 
 async def count_votes(opt, channel):
