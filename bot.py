@@ -49,14 +49,6 @@ with open("list_rank.yml") as f:
     f.close()
 
 
-@bot.event
-async def on_ready():
-    print(f'{bot.user} is connected to the following guild:')
-    for guild in bot.guilds:
-        print(f'-{guild.name}')
-    print(f'{bot.user} has started')
-
-
 with open(PATH) as f:
     data = yaml.load(f, Loader=yaml.FullLoader)
     if data is not None:
@@ -64,6 +56,14 @@ with open(PATH) as f:
     else:
         ISSUES = {}
     f.close()
+
+
+@bot.event
+async def on_ready():
+    print(f'{bot.user} is connected to the following guild:')
+    for guild in bot.guilds:
+        print(f'-{guild.name}')
+    print(f'{bot.user} has started')
 
 
 def backup():
@@ -354,6 +354,4 @@ async def results(channel, xml):
     else:
         await channel.send(f"trop long({len(msg)}), print envoyé")
         print(msg)
-
-
 bot.run(TOKEN)
