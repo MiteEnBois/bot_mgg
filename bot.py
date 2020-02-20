@@ -21,7 +21,7 @@ from dotenv import load_dotenv
 global NATION, PASSWORD, GUILD_ID, GUILD, CHANNEL_ISSUES_ID, CHANNEL, ISSUES, PATH, EMOJI, UPDATE, COOLDOWN_VOTE, RAPPEL
 global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, ROLE_PING, CURRENT_ID
 
-UPDATE = 30
+UPDATE = 10
 COOLDOWN_VOTE = 60*60*5
 RAPPEL = 60*60
 MIN_BEFORE_COOLDOWN = 5
@@ -66,6 +66,17 @@ async def on_ready():
     print(f'{bot.user} has started')
 
 
+@bot.command(name='delete', help='Pong!')
+async def delete(ctx, *id_mes):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    for i in id_mes:
+        mes = await ctx.channel.fetch_message(i)
+        await mes.delete()
+    await ctx.message.delete()
+
+
 def backup():
     with open(PATH, mode="r+") as f:
         f.truncate(0)
@@ -107,13 +118,13 @@ async def ping(ctx):
 
 @bot.command(name='start', help='Pong!')
 async def start(ctx):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
     await start_vote(ctx)
 
 
 async def start_vote(ctx):
-    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
-        await ctx.send("Negatif")
-        return
     global CHANNEL, GUILD
     CHANNEL = ctx.guild.get_channel(int(CHANNEL_ISSUES_ID))
     if CHANNEL is None:
@@ -188,6 +199,7 @@ async def launch_issue(issue, option):
     print(response.text)
     n = defusedxml.ElementTree.fromstring(response.text)
     return n
+    # return RESULTS_XML
 
 
 async def count_votes(opt, channel):
@@ -215,6 +227,73 @@ async def count_votes(opt, channel):
     return votes
 
 
+@bot.command(name='resume', help='Pong!')
+async def resume(ctx, id_issue):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    if id_issue is None:
+        await ctx.send("Besoin d'un id svp")
+        return
+    global CHANNEL, GUILD, CURRENT_ID
+    CURRENT_ID = int(id_issue)
+    if ISSUES[CURRENT_ID]["option_taken"] != -2:
+        print(f"{CURRENT_ID} a deja recu un vote, annulation de la commande")
+        await ctx.send(f"{CURRENT_ID} a deja recu un vote, annulation de la commande")
+        return
+
+    CHANNEL = ctx.guild.get_channel(int(CHANNEL_ISSUES_ID))
+    if CHANNEL is None:
+        CHANNEL = ctx.channel
+    if ctx.guild.id == GUILD_ID:
+        GUILD = ctx.guild
+
+    print(f"{CURRENT_ID} resumed")
+    await ctx.send(f"{CURRENT_ID} resumed")
+    verif.start(ctx)
+
+
+@bot.command(name='end', help='Pong!')
+async def end(ctx):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    await end_votes(ctx.channel)
+
+
+async def end_votes(channel):
+    iss = ISSUES[CURRENT_ID]
+    votes = await count_votes(iss["option_msg_id"], channel)
+    print(votes)
+    tp = math.floor(time.time()-iss["time_posted"])
+    msg = "__**RESULTAT DES VOTES**__\n"
+    msg += f"ID : {CURRENT_ID}\nTemps écoulé : **{duree(tp)}**\n"
+    maxv = 0
+    winv = -1
+    numv = 0
+    for x, v in enumerate(votes):
+        if v == maxv:
+            numv += 1
+        if v > maxv:
+            maxv = v
+            winv = x
+            numv = 1
+
+        msg += f"Option {x+1} : {v} votes\n"
+    if numv > 1:
+        winv = -1
+        msg += f"Egalité"
+    else:
+        msg += f"\n **Option gagnante : {winv+1} avec {maxv} votes**\n"
+    ISSUES[CURRENT_ID]["option_taken"] = winv
+    iss["option_taken"] = winv
+    backup()
+    await channel.send(msg)
+    xml = await launch_issue(CURRENT_ID, winv)
+    await results(channel, xml)
+    verif.stop()
+
+
 @tasks.loop(seconds=UPDATE)
 async def verif(ctx):
     iss = ISSUES[CURRENT_ID]
@@ -238,11 +317,12 @@ async def verif(ctx):
             backup()
             print("start countdown")
             txt = f"Assez de personnes ont voté. Les votes seront comptés dans {duree(COOLDOWN_VOTE)}!\n"
-            txt += f"Rendez-vous à {time.ctime(time.time()+COOLDOWN_VOTE)}"
+            txt += f"Rendez-vous à {time.ctime(time.time()+COOLDOWN_VOTE+3600)} GMT+1"
             await channel.send(txt)
     else:
-        print("verif2")
+
         tsc = math.floor(time.time()-iss["time_start_countdown"])
+        print(f"{duree(tsc)}/{duree(COOLDOWN_VOTE)}")
         if tsc < COOLDOWN_VOTE:
             temps_restant = COOLDOWN_VOTE-tsc
             if temps_restant <= RAPPEL and temps_restant >= (RAPPEL-UPDATE):
@@ -250,34 +330,7 @@ async def verif(ctx):
                 await channel.send(f"Il reste {duree(RAPPEL)} avant la fin du vote!")
             return True
         else:
-            votes = await count_votes(opt, channel)
-            print(votes)
-            tp = math.floor(time.time()-iss["time_posted"])
-            msg = "__**RESULTAT DES VOTES**__\n"
-            msg += f"ID : {CURRENT_ID}\nTemps écoulé : **{duree(tp)}**\n"
-            maxv = 0
-            winv = -1
-            numv = 0
-            for x, v in enumerate(votes):
-                if v == maxv:
-                    numv += 1
-                if v > maxv:
-                    maxv = v
-                    winv = x
-                    numv = 1
-
-                msg += f"Option {x+1} : {v} votes\n"
-            if numv > 1:
-                winv = -1
-                msg += f"Egalité"
-            else:
-                msg += f"\n **Option gagnante : {winv+1} avec {maxv} votes**\n"
-            ISSUES[CURRENT_ID]["option_taken"] = winv
-            iss["option_taken"] = winv
-            backup()
-            await channel.send(msg)
-            xml = await launch_issue(CURRENT_ID, winv)
-            await results(channel, xml)
+            await end_votes(channel)
             verif.stop()
             return False
 
