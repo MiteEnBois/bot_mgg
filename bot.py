@@ -1,5 +1,3 @@
-# bot.py
-
 import asyncio
 import os
 import json
@@ -17,6 +15,8 @@ from copy import deepcopy
 from discord.ext import commands
 from discord.ext import tasks
 from dotenv import load_dotenv
+
+# ----------------------------- SETUP VARIABLES GLOBALES ET BOT
 
 global NATION, PASSWORD, GUILD_ID, GUILD, CHANNEL_ISSUES_ID, CHANNEL, ISSUES, PATH, EMOJI, UPDATE, COOLDOWN_VOTE, RAPPEL
 global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, ROLE_PING, CURRENT_ID
@@ -44,11 +44,14 @@ CHANNEL_ISSUES_ID = os.getenv('CHANNEL_ISSUES')
 
 bot = commands.Bot(command_prefix=';')
 
+# ----------------------------- LECTURE DES FICHIERS
+
+# Charge la liste des rangs lors du lancement de l'application
 with open("list_rank.yml") as f:
     LIST_RANK_ID = yaml.load(f, Loader=yaml.FullLoader)
     f.close()
 
-
+# Charge le backup de la liste d'issue dans le dictionnaire ISSUES
 with open(PATH) as f:
     data = yaml.load(f, Loader=yaml.FullLoader)
     if data is not None:
@@ -57,24 +60,9 @@ with open(PATH) as f:
         ISSUES = {}
     f.close()
 
+# ----------------------------- FONCTIONS UTILITAIRES
 
-@bot.event
-async def on_ready():
-    print(f'{bot.user} is connected to the following guild:')
-    for guild in bot.guilds:
-        print(f'-{guild.name}')
-    print(f'{bot.user} has started')
-
-
-@bot.command(name='delete', help='Pong!')
-async def delete(ctx, *id_mes):
-    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
-        await ctx.send("Negatif")
-        return
-    for i in id_mes:
-        mes = await ctx.channel.fetch_message(i)
-        await mes.delete()
-    await ctx.message.delete()
+# Enregistre dans un fichier le dictionnaire ISSUES
 
 
 def backup():
@@ -84,6 +72,7 @@ def backup():
         f.close()
 
 
+# Cree un objet Embed pour l'affichage sur discord
 def embed(title="", description="", fv="", num=0, color=None, footer=None):
     embed = discord.Embed(title=title, description=description, color=color)
     if num > len(EMOJI)+1:
@@ -95,6 +84,7 @@ def embed(title="", description="", fv="", num=0, color=None, footer=None):
     return embed
 
 
+# Convertit une durée en seconde en string de style h m s
 def duree(t):
     s = t % 60
     t = math.floor(t/60)
@@ -110,18 +100,9 @@ def duree(t):
     txt += f"{s}s"
     return txt
 
+# ----------------------------- FONCTIONS GESTION DE VOTE
 
-@bot.command(name='ping', help='Pong!')
-async def ping(ctx):
-    await ctx.send("Pong!")
-
-
-@bot.command(name='start', help='Pong!')
-async def start(ctx):
-    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
-        await ctx.send("Negatif")
-        return
-    await start_vote(ctx)
+# Setup un vote et lance verif()
 
 
 async def start_vote(ctx):
@@ -188,6 +169,7 @@ async def start_vote(ctx):
     verif.start(ctx)
 
 
+# Envoie le résultat du vote et retourne l'xml reçu grace à la requete
 async def launch_issue(issue, option):
     response = requests.get(
         f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&c=issue&issue={issue}&option={option}",
@@ -202,6 +184,8 @@ async def launch_issue(issue, option):
     # return RESULTS_XML
 
 
+# Compte les votes de la listes de messages dans le canal "channel" et renvoie un tableau contenant le nombre de vote de chaque option
+# Skip les votes d'un user ayant deja voté
 async def count_votes(opt, channel):
     votes = []
     voters = []
@@ -227,40 +211,8 @@ async def count_votes(opt, channel):
     return votes
 
 
-@bot.command(name='resume', help='Pong!')
-async def resume(ctx, id_issue):
-    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
-        await ctx.send("Negatif")
-        return
-    if id_issue is None:
-        await ctx.send("Besoin d'un id svp")
-        return
-    global CHANNEL, GUILD, CURRENT_ID
-    CURRENT_ID = int(id_issue)
-    if ISSUES[CURRENT_ID]["option_taken"] != -2:
-        print(f"{CURRENT_ID} a deja recu un vote, annulation de la commande")
-        await ctx.send(f"{CURRENT_ID} a deja recu un vote, annulation de la commande")
-        return
-
-    CHANNEL = ctx.guild.get_channel(int(CHANNEL_ISSUES_ID))
-    if CHANNEL is None:
-        CHANNEL = ctx.channel
-    if ctx.guild.id == GUILD_ID:
-        GUILD = ctx.guild
-
-    print(f"{CURRENT_ID} resumed")
-    await ctx.send(f"{CURRENT_ID} resumed")
-    verif.start(ctx)
-
-
-@bot.command(name='end', help='Pong!')
-async def end(ctx):
-    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
-        await ctx.send("Negatif")
-        return
-    await end_votes(ctx.channel)
-
-
+# Conclut le vote. Utilise launch_issue() pour envoyer les résultats et obtenir le xml de retour, qu'il envoie ensuite à results()
+# Stoppe de force verif()
 async def end_votes(channel):
     iss = ISSUES[CURRENT_ID]
     votes = await count_votes(iss["option_msg_id"], channel)
@@ -294,6 +246,11 @@ async def end_votes(channel):
     verif.stop()
 
 
+# Boucle toutes les UPDATE secondes
+# Gere les conditions de fin de vote
+# Une fois que le bot est lancé, vérifie si le nombre de vote est suffisent
+# Si assez de gens ont votés, un temps limite est décidé (les votes ne seront plus comptés jusqu'à la fin du vote)
+# Quand la limite de temps est atteinte, les votes sont comptés une derniere fois, et le processus de cloture du vote peut démarrer
 @tasks.loop(seconds=UPDATE)
 async def verif(ctx):
     iss = ISSUES[CURRENT_ID]
@@ -304,9 +261,7 @@ async def verif(ctx):
         print("continue")
         return True
     if iss["time_start_countdown"] == 0:
-
         votes = await count_votes(opt, channel)
-        # votes = [1, 0, 0]
         cvotes = 0
         for i in votes:
             cvotes += i
@@ -335,11 +290,7 @@ async def verif(ctx):
             return False
 
 
-@bot.command(name='res', help='Pong!')
-async def res(ctx):
-    await results(ctx.channel, RESULTS_XML)
-
-
+# Converti l'xml de résultats en messages clairs
 async def results(channel, xml):
     msg = ""
     # issue = RESULTS_XML.find("ISSUE")
@@ -408,4 +359,85 @@ async def results(channel, xml):
     else:
         await channel.send(f"trop long({len(msg)}), print envoyé")
         print(msg)
+
+# ----------------------------- COMMANDES DISCORDS GESTION DE VOTE
+
+
+@bot.command(name='ping', help='Pong!')
+async def ping(ctx):
+    await ctx.send("Pong!")
+
+
+@bot.command(name='delete', help="Supprime des messages\nPrend une liste d'id de message et les supprimes, en plus du message qui a envoyé la commande\nLimité aux admins")
+async def delete(ctx, *id_mes):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    for i in id_mes:
+        mes = await ctx.channel.fetch_message(i)
+        await mes.delete()
+    await ctx.message.delete()
+
+
+@bot.command(name='start', help="Force le setup d'un vote\nLimité aux admins")
+async def start(ctx):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    await start_vote(ctx)
+
+
+@bot.command(name='resume', help="Relance le processus de vote à partir du backup\nDemande l'id du vote\nà n'utiliser que si le bot s'est arreté en cours de vote\nRéservé aux admins")
+async def resume(ctx, id_issue):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    if id_issue is None:
+        await ctx.send("Besoin d'un id svp")
+        return
+    global CHANNEL, GUILD, CURRENT_ID
+    CURRENT_ID = int(id_issue)
+    if ISSUES[CURRENT_ID]["option_taken"] != -2:
+        print(f"{CURRENT_ID} a deja recu un vote, annulation de la commande")
+        await ctx.send(f"{CURRENT_ID} a deja recu un vote, annulation de la commande")
+        return
+
+    CHANNEL = ctx.guild.get_channel(int(CHANNEL_ISSUES_ID))
+    if CHANNEL is None:
+        CHANNEL = ctx.channel
+    if ctx.guild.id == GUILD_ID:
+        GUILD = ctx.guild
+
+    print(f"{CURRENT_ID} resumed")
+    await ctx.send(f"{CURRENT_ID} resumed")
+    verif.start(ctx)
+
+
+@bot.command(name='end', help="Conclut le vote actuel de force.\nRéservé aux admins")
+async def end(ctx):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    await end_votes(ctx.channel)
+
+
+@bot.command(name='res', help='Affiche un résultat de test\nLimité aux admins')
+async def res(ctx):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    await results(ctx.channel, RESULTS_XML)
+
+# ----------------------------- FIN SETUP
+
+# S'execute quand le bot est prêt; Affiche la liste des serveurs sur lesquelles le bot est actuellement
+@bot.event
+async def on_ready():
+    print(f'{bot.user} is connected to the following guild:')
+    for guild in bot.guilds:
+        print(f'-{guild.name}')
+    print(f'{bot.user} has started')
+
+
+# lance le bot
 bot.run(TOKEN)
