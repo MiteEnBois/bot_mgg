@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NATION id="controlistania">
+   <ISSUE id="635" choice="2">
+      <OK>1</OK>
+      <DESC>it's considered a valid legal defence to say "a demon made me do it"</DESC>
+      <RANKINGS>
+         <RANK id="0">
+            <SCORE>65.81</SCORE>
+            <CHANGE>20.14</CHANGE>
+            <PCHANGE>44.098971</PCHANGE>
+         </RANK>
+         <RANK id="5">
+            <SCORE>34.80</SCORE>
+            <CHANGE>1.16</CHANGE>
+            <PCHANGE>3.448276</PCHANGE>
+         </RANK>
+         <RANK id="7">
+            <SCORE>207.02</SCORE>
+            <CHANGE>1.21</CHANGE>
+            <PCHANGE>0.587921</PCHANGE>
+         </RANK>
+         <RANK id="8">
+            <SCORE>42.29</SCORE>
+            <CHANGE>-16.46</CHANGE>
+            <PCHANGE>-28.017021</PCHANGE>
+         </RANK>
+         <RANK id="9">
+            <SCORE>130.50</SCORE>
+            <CHANGE>36.00</CHANGE>
+            <PCHANGE>38.095238</PCHANGE>
+         </RANK>
+         <RANK id="10">
+            <SCORE>248.42</SCORE>
+            <CHANGE>1.45</CHANGE>
+            <PCHANGE>0.587116</PCHANGE>
+         </RANK>
+         <RANK id="11">
+            <SCORE>2232.51</SCORE>
+            <CHANGE>13.10</CHANGE>
+            <PCHANGE>0.590247</PCHANGE>
+         </RANK>
+         <RANK id="12">
+            <SCORE>-6.48</SCORE>
+            <CHANGE>0.15</CHANGE>
+            <PCHANGE>2.262443</PCHANGE>
+         </RANK>
+         <RANK id="13">
+            <SCORE>2898.28</SCORE>
+            <CHANGE>-312.29</CHANGE>
+            <PCHANGE>-9.726933</PCHANGE>
+         </RANK>
+         <RANK id="14">
+            <SCORE>1738.97</SCORE>
+            <CHANGE>10.20</CHANGE>
+            <PCHANGE>0.590015</PCHANGE>
+         </RANK>
+         <RANK id="15">
+            <SCORE>4130.47</SCORE>
+            <CHANGE>24.23</CHANGE>
+            <PCHANGE>0.590078</PCHANGE>
+         </RANK>
+         <RANK id="16">
+            <SCORE>2484.24</SCORE>
+            <CHANGE>14.57</CHANGE>
+            <PCHANGE>0.589957</PCHANGE>
+         </RANK>
+         <RANK id="18">
+            <SCORE>538.25</SCORE>
+            <CHANGE>3.15</CHANGE>
+            <PCHANGE>0.588675</PCHANGE>
+         </RANK>
+         <RANK id="19">
+            <SCORE>3146.71</SCORE>
+            <CHANGE>18.46</CHANGE>
+            <PCHANGE>0.590106</PCHANGE>
+         </RANK>
+         <RANK id="20">
+            <SCORE>4388.83</SCORE>
+            <CHANGE>25.74</CHANGE>
+            <PCHANGE>0.589949</PCHANGE>
+         </RANK>
+         <RANK id="21">
+            <SCORE>4802.87</SCORE>
+            <CHANGE>28.17</CHANGE>
+            <PCHANGE>0.589985</PCHANGE>
+         </RANK>
+         <RANK id="22">
+            <SCORE>5630.95</SCORE>
+            <CHANGE>33.03</CHANGE>
+            <PCHANGE>0.590041</PCHANGE>
+         </RANK>
+         <RANK id="23">
+            <SCORE>2981.09</SCORE>
+            <CHANGE>17.48</CHANGE>
+            <PCHANGE>0.589821</PCHANGE>
+         </RANK>
+         <RANK id="24">
+            <SCORE>-6.16</SCORE>
+            <CHANGE>-0.24</CHANGE>
+            <PCHANGE>-4.054054</PCHANGE>
+         </RANK>
+         <RANK id="25">
+            <SCORE>-4.60</SCORE>
+            <CHANGE>0.34</CHANGE>
+            <PCHANGE>6.882591</PCHANGE>
+         </RANK>
+         <RANK id="26">
+            <SCORE>2732.67</SCORE>
+            <CHANGE>16.03</CHANGE>
+            <PCHANGE>0.590067</PCHANGE>
+         </RANK>
+         <RANK id="27">
+            <SCORE>8.25</SCORE>
+            <CHANGE>-0.12</CHANGE>
+            <PCHANGE>-1.433692</PCHANGE>
+         </RANK>
+         <RANK id="28">
+            <SCORE>310.53</SCORE>
+            <CHANGE>1.82</CHANGE>
+            <PCHANGE>0.589550</PCHANGE>
+         </RANK>
+         <RANK id="29">
+            <SCORE>828.08</SCORE>
+            <CHANGE>4.86</CHANGE>
+            <PCHANGE>0.590365</PCHANGE>
+         </RANK>
+         <RANK id="30">
+            <SCORE>517.55</SCORE>
+            <CHANGE>-202.77</CHANGE>
+            <PCHANGE>-28.149989</PCHANGE>
+         </RANK>
+         <RANK id="31">
+            <SCORE>414.04</SCORE>
+            <CHANGE>2.43</CHANGE>
+            <PCHANGE>0.590365</PCHANGE>
+         </RANK>
+         <RANK id="32">
+            <SCORE>286.24</SCORE>
+            <CHANGE>273.27</CHANGE>
+            <PCHANGE>2106.939090</PCHANGE>
+         </RANK>
+         <RANK id="36">
+            <SCORE>26.32</SCORE>
+            <CHANGE>1.93</CHANGE>
+            <PCHANGE>7.913079</PCHANGE>
+         </RANK>
+         <RANK id="37">
+            <SCORE>15.06</SCORE>
+            <CHANGE>-3.07</CHANGE>
+            <PCHANGE>-16.933260</PCHANGE>
+         </RANK>
+         <RANK id="41">
+            <SCORE>98.00</SCORE>
+            <CHANGE>1.00</CHANGE>
+            <PCHANGE>1.030928</PCHANGE>
+         </RANK>
+         <RANK id="42">
+            <SCORE>51.36</SCORE>
+            <CHANGE>-4.19</CHANGE>
+            <PCHANGE>-7.542754</PCHANGE>
+         </RANK>
+         <RANK id="43">
+            <SCORE>31.16</SCORE>
+            <CHANGE>-18.11</CHANGE>
+            <PCHANGE>-36.756647</PCHANGE>
+         </RANK>
+         <RANK id="44">
+            <SCORE>67.61</SCORE>
+            <CHANGE>-1.00</CHANGE>
+            <PCHANGE>-1.457513</PCHANGE>
+         </RANK>
+         <RANK id="45">
+            <SCORE>8.47</SCORE>
+            <CHANGE>-0.35</CHANGE>
+            <PCHANGE>-3.968254</PCHANGE>
+         </RANK>
+         <RANK id="46">
+            <SCORE>1552.65</SCORE>
+            <CHANGE>9.11</CHANGE>
+            <PCHANGE>0.590202</PCHANGE>
+         </RANK>
+         <RANK id="47">
+            <SCORE>31.74</SCORE>
+            <CHANGE>-14.62</CHANGE>
+            <PCHANGE>-31.535807</PCHANGE>
+         </RANK>
+         <RANK id="49">
+            <SCORE>10.01</SCORE>
+            <CHANGE>-0.35</CHANGE>
+            <PCHANGE>-3.378378</PCHANGE>
+         </RANK>
+         <RANK id="50">
+            <SCORE>98.39</SCORE>
+            <CHANGE>0.51</CHANGE>
+            <PCHANGE>0.521046</PCHANGE>
+         </RANK>
+         <RANK id="53">
+            <SCORE>432.62</SCORE>
+            <CHANGE>-120.16</CHANGE>
+            <PCHANGE>-21.737400</PCHANGE>
+         </RANK>
+         <RANK id="55">
+            <SCORE>65.00</SCORE>
+            <CHANGE>1.00</CHANGE>
+            <PCHANGE>1.562500</PCHANGE>
+         </RANK>
+         <RANK id="56">
+            <SCORE>70.36</SCORE>
+            <CHANGE>0.02</CHANGE>
+            <PCHANGE>0.028433</PCHANGE>
+         </RANK>
+         <RANK id="57">
+            <SCORE>724.57</SCORE>
+            <CHANGE>4.25</CHANGE>
+            <PCHANGE>0.590016</PCHANGE>
+         </RANK>
+         <RANK id="58">
+            <SCORE>161.79</SCORE>
+            <CHANGE>-76.81</CHANGE>
+            <PCHANGE>-32.191953</PCHANGE>
+         </RANK>
+         <RANK id="59">
+            <SCORE>1.39</SCORE>
+            <CHANGE>0.96</CHANGE>
+            <PCHANGE>223.255814</PCHANGE>
+         </RANK>
+         <RANK id="60">
+            <SCORE>44.60</SCORE>
+            <CHANGE>3.20</CHANGE>
+            <PCHANGE>7.729469</PCHANGE>
+         </RANK>
+         <RANK id="62">
+            <SCORE>16.53</SCORE>
+            <CHANGE>-2.16</CHANGE>
+            <PCHANGE>-11.556982</PCHANGE>
+         </RANK>
+         <RANK id="64">
+            <SCORE>89.45</SCORE>
+            <CHANGE>35.58</CHANGE>
+            <PCHANGE>66.047893</PCHANGE>
+         </RANK>
+         <RANK id="67">
+            <SCORE>46.53</SCORE>
+            <CHANGE>0.35</CHANGE>
+            <PCHANGE>0.757904</PCHANGE>
+         </RANK>
+         <RANK id="68">
+            <SCORE>53.74</SCORE>
+            <CHANGE>-0.71</CHANGE>
+            <PCHANGE>-1.303949</PCHANGE>
+         </RANK>
+         <RANK id="69">
+            <SCORE>-77.78</SCORE>
+            <CHANGE>4.38</CHANGE>
+            <PCHANGE>5.331061</PCHANGE>
+         </RANK>
+         <RANK id="70">
+            <SCORE>62.85</SCORE>
+            <CHANGE>-4.60</CHANGE>
+            <PCHANGE>-6.819867</PCHANGE>
+         </RANK>
+         <RANK id="72">
+            <SCORE>49520.88</SCORE>
+            <CHANGE>-244.64</CHANGE>
+            <PCHANGE>-0.491585</PCHANGE>
+         </RANK>
+         <RANK id="73">
+            <SCORE>21434.41</SCORE>
+            <CHANGE>-105.89</CHANGE>
+            <PCHANGE>-0.491590</PCHANGE>
+         </RANK>
+         <RANK id="74">
+            <SCORE>101313.36</SCORE>
+            <CHANGE>-500.50</CHANGE>
+            <PCHANGE>-0.491583</PCHANGE>
+         </RANK>
+         <RANK id="75">
+            <SCORE>724.57</SCORE>
+            <CHANGE>4.25</CHANGE>
+            <PCHANGE>0.590016</PCHANGE>
+         </RANK>
+         <RANK id="76">
+            <SCORE>297000000000.00</SCORE>
+            <CHANGE>-2000000000.00</CHANGE>
+            <PCHANGE>-0.668896</PCHANGE>
+         </RANK>
+         <RANK id="77">
+            <SCORE>15.66</SCORE>
+            <CHANGE>3.65</CHANGE>
+            <PCHANGE>30.391341</PCHANGE>
+         </RANK>
+         <RANK id="79">
+            <SCORE>1700000000.00</SCORE>
+            <CHANGE>200000000.00</CHANGE>
+            <PCHANGE>13.333333</PCHANGE>
+         </RANK>
+         <RANK id="85">
+            <SCORE>44568.79</SCORE>
+            <CHANGE>-21.11</CHANGE>
+            <PCHANGE>-0.047343</PCHANGE>
+         </RANK>
+      </RANKINGS>
+      <UNLOCKS>
+         <BANNER>b25</BANNER>
+         <BANNER>d6</BANNER>
+         <BANNER>p9</BANNER>
+         <BANNER>r11</BANNER>
+         <BANNER>p2</BANNER>
+         <BANNER>p8</BANNER>
+      </UNLOCKS>
+      <RECLASSIFICATIONS>
+         <RECLASSIFY type="0">
+            <FROM>Below Average</FROM>
+            <TO>Very Good</TO>
+         </RECLASSIFY>
+      </RECLASSIFICATIONS>
+      <HEADLINES>
+         <HEADLINE>Grandparents Rarer, More Appreciated</HEADLINE>
+         <HEADLINE>Cars Driving Controlistania To Speedy Future</HEADLINE>
+         <HEADLINE>Sunscreen Sales Grow</HEADLINE>
+         <HEADLINE>Crime Has Never Been Worse, Say Elderly</HEADLINE>
+      </HEADLINES>
+   </ISSUE>
+</NATION>
