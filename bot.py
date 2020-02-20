@@ -29,7 +29,7 @@ CURRENT_ID = 0
 CHANNEL = None
 GUILD = None
 
-ROLE_PING = "572159388865789987"
+ROLE_PING = "671696364056477707"
 EMOJI_VOTE = ["☑️", "✅", "✔️"]
 EMOJI = [":apple:", ":pineapple:", ":kiwi:", ":cherries:", ":banana:", ":eggplant:", ":tomato:", ":corn:", ":carrot:"]
 NATION = 'controlistania'
