@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 # ----------------------------- SETUP VARIABLES GLOBALES ET BOT
 
 global NATION, PASSWORD, GUILD_ID, GUILD, CHANNEL_ISSUES_ID, CHANNEL, ISSUES, PATH, EMOJI, UPDATE, COOLDOWN_VOTE, RAPPEL
-global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, ROLE_PING, CURRENT_ID
+global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, ROLE_PING, CURRENT_ID, ISSUE_RESULTS
 
 UPDATE = 10
 COOLDOWN_VOTE = 60*60*3
@@ -28,6 +28,7 @@ MIN_BEFORE_COOLDOWN = 5
 CURRENT_ID = 0
 CHANNEL = None
 GUILD = None
+ISSUE_RESULTS = None
 
 ROLE_PING = "671696364056477707"
 EMOJI_VOTE = ["☑️", "✅", "✔️"]
@@ -178,6 +179,8 @@ async def launch_issue(issue, option):
             'X-Password': PASSWORD
         },
     )
+    global ISSUE_RESULTS
+    ISSUE_RESULTS = response.text
     print(response.text)
     n = defusedxml.ElementTree.fromstring(response.text)
     return n
@@ -215,6 +218,9 @@ async def count_votes(opt, channel):
 # Stoppe de force verif()
 async def end_votes(channel):
     iss = ISSUES[CURRENT_ID]
+    if CURRENT_ID == 0 or iss["option_taken"] != -2:
+        await channel.send("Pas de vote en cours, annulation de la commande")
+        return
     votes = await count_votes(iss["option_msg_id"], channel)
     print(votes)
     tp = math.floor(time.time()-iss["time_posted"])
@@ -308,27 +314,32 @@ async def results(channel, xml):
     msg += f"**{desc.upper()}**\n"
     await channel.send(msg)
 
-    msg = "**__Unlocks : __**\n"
-    for unlock in issue.find("UNLOCKS"):
-        msg += f"{unlock.tag.lower()} : {unlock.text}\n"
-    msg += "**__Reclassification : __**\n"
-    for r in issue.find("RECLASSIFICATIONS").findall("RECLASSIFY"):
-        rtype = LIST_RANK_ID[int(r.get("type"))]
-        fro = r.find("FROM").text
-        to = r.find("TO").text
-        msg += f"{rtype} : from {fro} to {to}\n"
-    msg += "**__Headlines: __**\n"
-    for h in issue.find("HEADLINES").findall("HEADLINE"):
-        msg += f"{h.text}\n"
-    npol = issue.find("NEW_POLICIES")
-    if npol is not None:
+    if issue.find("UNLOCKS") is not None:
+        msg = "**__Unlocks : __**\n"
+        for unlock in issue.find("UNLOCKS"):
+            msg += f"{unlock.tag.lower()} : {unlock.text}\n"
+
+    if issue.find("RECLASSIFICATIONS") is not None and issue.find("RECLASSIFICATIONS").findall("RECLASSIFY") is not None:
+        msg += "**__Reclassification : __**\n"
+        for r in issue.find("RECLASSIFICATIONS").findall("RECLASSIFY"):
+            rtype = LIST_RANK_ID[int(r.get("type"))]
+            fro = r.find("FROM").text
+            to = r.find("TO").text
+            msg += f"{rtype} : from {fro} to {to}\n"
+
+    if issue.find("HEADLINES") is not None and issue.find("HEADLINES").findall("HEADLINE") is not None:
+        msg += "**__Headlines: __**\n"
+        for h in issue.find("HEADLINES").findall("HEADLINE"):
+            msg += f"{h.text}\n"
+
+    if issue.find("NEW_POLICIES") is not None:
         msg += "**__Nouvelles Stratégies : __**\n"
-        for p in npol:
+        for p in issue.find("NEW_POLICIES"):
             msg += f"{p.tag} : {p.text}\n"
-    rpol = issue.find("REMOVED_POLICIES")
-    if rpol is not None:
+
+    if issue.find("REMOVED_POLICIES") is not None:
         msg += "**__Stratégies Enlevées : __**\n"
-        for p in rpol:
+        for p in issue.find("REMOVED_POLICIES"):
             msg += f"{p.tag} : {p.text}\n"
     await channel.send(msg)
     print(len(msg))
@@ -428,9 +439,22 @@ async def res(ctx):
         return
     await results(ctx.channel, RESULTS_XML)
 
+
+@bot.command(name='resxml', help='Pong!')
+async def resxml(ctx):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    if ISSUE_RESULTS is not None:
+        await ctx.send(ISSUE_RESULTS)
+    else:
+        await ctx.send("Pas de résultat à montrer, sorry")
+
 # ----------------------------- FIN SETUP
 
 # S'execute quand le bot est prêt; Affiche la liste des serveurs sur lesquelles le bot est actuellement
+
+
 @bot.event
 async def on_ready():
     print(f'{bot.user} is connected to the following guild:')
