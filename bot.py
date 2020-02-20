@@ -34,8 +34,6 @@ EMOJI_VOTE = ["☑️", "✅", "✔️"]
 EMOJI = [":apple:", ":pineapple:", ":kiwi:", ":cherries:", ":banana:", ":eggplant:", ":tomato:", ":corn:", ":carrot:"]
 NATION = 'controlistania'
 PATH = 'vote.yml'
-LIST_RANK_ID = ["Civil Rights", "Economy", "Political Freedom", "Population", "Wealth Gaps", "Death Rate", "Compassion", "Eco-Friendliness", "Social Conservatism", "Nudity", "Industry: Automobile Manufacturing", "Industry: Cheese Exports", "Industry: Basket Weaving", "Industry: Information Technology", "Industry: Pizza Delivery", "Industry: Trout Fishing", "Industry: Arms Manufacturing", "Sector: Agriculture", "Industry: Beverage Sales", "Industry: Timber Woodchipping", "Industry: Mining", "Industry: Insurance", "Industry: Furniture Restoration", "Industry: Retail", "Industry: Book Publishing", "Industry: Gambling", "Sector: Manufacturing", "Government Size", "Welfare", "Public Healthcare", "Law Enforcement", "Business Subsidization", "Religiousness", "Income Equality", "Niceness", "Rudeness", "Intelligence",
-                "Ignorance", "Political Apathy", "Health", "Cheerfulness", "Weather", "Compliance", "Safety", "Lifespan", "Ideological Radicality", "Defense Forces", "Pacifism", "Economic Freedom", "Taxation", "Freedom From Taxation", "Corruption", "Integrity", "Authoritarianism", "Youth Rebelliousness", "Culture", "Employment", "Public Transport", "Tourism", "Weaponization", "Recreational Drug Use", "Obesity", "Secularism", "Environmental Beauty", "Charmlessness", "Influence", "World Assembly Endorsements", "Averageness", "Human Development Index", "Primitiveness", "Scientific Advancement", "Inclusiveness", "Average Income", "Average Income of Poor", "Average Income of Rich", "Public Education", "Economic Output", "Crime", "Foreign Aid", "Black Market", "Residency", "Average Disposable Income", "International Artwork", "Nations"]
 RESULTS_XML = ET.parse("test_result.xml")
 
 load_dotenv()
@@ -136,7 +134,7 @@ async def start_vote(ctx):
     options = []
     i = 1
     for option in issue.findall('OPTION'):
-        txt = option.text.replace("<i>", "*").txt.replace("</i>", "*")
+        txt = option.text.replace("<i>", "*").replace("</i>", "*")
         print(txt)
         msgoption = embed(fv=txt, num=i, color=0xecb440)
         option_message = await CHANNEL.send(embed=msgoption)
