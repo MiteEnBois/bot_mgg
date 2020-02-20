@@ -49,6 +49,14 @@ with open("list_rank.yml") as f:
     f.close()
 
 
+@bot.event
+async def on_ready():
+    print(f'{bot.user} is connected to the following guild:')
+    for guild in bot.guilds:
+        print(f'-{guild.name}')
+    print(f'{bot.user} has started')
+
+
 with open(PATH) as f:
     data = yaml.load(f, Loader=yaml.FullLoader)
     if data is not None:
@@ -179,14 +187,6 @@ async def launch_issue(issue, option):
     # )
     # return response
     return RESULTS_XML
-
-
-@bot.event
-async def on_ready():
-    print(f'{bot.user} is connected to the following guild:')
-    for guild in bot.guilds:
-        print(f'-{guild.name}')
-    print(f'{bot.user} has started')
 
 
 async def count_votes(opt, channel):
@@ -354,4 +354,6 @@ async def results(channel, xml):
     else:
         await channel.send(f"trop long({len(msg)}), print envoyé")
         print(msg)
+
+
 bot.run(TOKEN)
