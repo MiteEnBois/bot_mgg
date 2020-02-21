@@ -19,23 +19,24 @@ from dotenv import load_dotenv
 # ----------------------------- SETUP VARIABLES GLOBALES ET BOT
 
 global NATION, PASSWORD, GUILD_ID, GUILD, CHANNEL_ISSUES_ID, CHANNEL, ISSUES, PATH, EMOJI, UPDATE, COOLDOWN_VOTE, RAPPEL
-global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, ROLE_PING, CURRENT_ID, ISSUE_RESULTS
+global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, INPUT_XML, ROLE_PING, CURRENT_ID, ISSUE_RESULTS
 
-UPDATE = 10
-COOLDOWN_VOTE = 60*60*3
-RAPPEL = 60*60
-MIN_BEFORE_COOLDOWN = 5
+UPDATE = 5
+COOLDOWN_VOTE = 20
+RAPPEL = 5
+MIN_BEFORE_COOLDOWN = 1
 CURRENT_ID = 0
 CHANNEL = None
 GUILD = None
 ISSUE_RESULTS = None
 
 ROLE_PING = "671696364056477707"
-EMOJI_VOTE = ["☑️", "✅", "✔️"]
+EMOJI_VOTE = ["☑️", "✅"]
 EMOJI = [":apple:", ":pineapple:", ":kiwi:", ":cherries:", ":banana:", ":eggplant:", ":tomato:", ":corn:", ":carrot:"]
 NATION = 'controlistania'
 PATH = 'vote.yml'
 RESULTS_XML = ET.parse("test_result.xml")
+INPUT_XML = ET.parse("test_input.xml")
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -87,6 +88,8 @@ def embed(title="", description="", fv="", num=0, color=None, footer=None):
 
 # Convertit une durée en seconde en string de style h m s
 def duree(t):
+    if t % 3600 == 0:
+        return f"{math.floor(t/3600)}h"
     s = t % 60
     t = math.floor(t/60)
     m = t % 60
@@ -101,19 +104,11 @@ def duree(t):
     txt += f"{s}s"
     return txt
 
+
 # ----------------------------- FONCTIONS GESTION DE VOTE
 
-# Setup un vote et lance verif()
 
-
-async def start_vote(ctx):
-    global CHANNEL, GUILD
-    CHANNEL = ctx.guild.get_channel(int(CHANNEL_ISSUES_ID))
-    if CHANNEL is None:
-        CHANNEL = ctx.channel
-    if ctx.guild.id == GUILD_ID:
-        GUILD = ctx.guild
-
+def check_idop():
     response = requests.get(
         f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&q=issues",
         headers={
@@ -122,6 +117,23 @@ async def start_vote(ctx):
         },
     )
     n = defusedxml.ElementTree.fromstring(response.text)
+
+    for i in n.find('ISSUES').findall('ISSUE'):
+
+        txt = f"{i.get('id')} :"
+        for option in i.findall('OPTION'):
+            txt += f"{option.get('id')} "
+        print(txt)
+
+
+# Setup un vote et lance verif()
+async def start_vote(ctx, n):
+    global CHANNEL, GUILD
+    CHANNEL = ctx.guild.get_channel(int(CHANNEL_ISSUES_ID))
+    if CHANNEL is None:
+        CHANNEL = ctx.channel
+    if ctx.guild.id == GUILD_ID:
+        GUILD = ctx.guild
 
     issues = n.find('ISSUES').findall('ISSUE')
     issue = issues[0]
@@ -132,18 +144,20 @@ async def start_vote(ctx):
     title_message = await CHANNEL.send(embed=msg)
 
     shuffle(EMOJI)
-    options = []
+    options = {}
     i = 1
     for option in issue.findall('OPTION'):
         txt = option.text.replace("<i>", "*").replace("</i>", "*")
-        print(txt)
         msgoption = embed(fv=txt, num=i, color=0xecb440)
         option_message = await CHANNEL.send(embed=msgoption)
-        obj = {option_message.id: txt}
-        options.append(obj)
+        options[int(option.get("id"))] = {
+            "id_message": option_message.id,
+            "text": txt
+        }
         i += 1
 
     msg_info = f"**<@&{ROLE_PING}>, un nouveau vote est lancé!**\nVeuillez voter en mettant une réaction sous l'option de votre choix (Un vote par personne! En cas de multiple vote, la premiere option rencontrée sera prise et les autres seront ignorées)\n"
+    msg_info += "En cas d'égalité, le vote sera annulé, et l'issue révoquée\n"
     msg_info += "Les emojis comptant pour le vote sont les suivants : "
     for i in EMOJI_VOTE:
         msg_info += f"{i} "
@@ -172,31 +186,29 @@ async def start_vote(ctx):
 
 # Envoie le résultat du vote et retourne l'xml reçu grace à la requete
 async def launch_issue(issue, option):
-    response = requests.get(
-        f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&c=issue&issue={issue}&option={option}",
-        headers={
-            'User-Agent': 'Controlistania Discord Bot - owner:timothee.bouvin@gmail.com',
-            'X-Password': PASSWORD
-        },
-    )
-    global ISSUE_RESULTS
-    ISSUE_RESULTS = response.text
-    print(response.text)
-    n = defusedxml.ElementTree.fromstring(response.text)
-    return n
-    # return RESULTS_XML
+    # response = requests.get(
+    #     f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&c=issue&issue={issue}&option={option}",
+    #     headers={
+    #         'User-Agent': 'Controlistania Discord Bot - owner:timothee.bouvin@gmail.com',
+    #         'X-Password': PASSWORD
+    #     },
+    # )
+    # global ISSUE_RESULTS
+    # ISSUE_RESULTS = response.text
+    # print(response.text)
+    # n = defusedxml.ElementTree.fromstring(response.text)
+    # return n
+    return RESULTS_XML
 
 
 # Compte les votes de la listes de messages dans le canal "channel" et renvoie un tableau contenant le nombre de vote de chaque option
 # Skip les votes d'un user ayant deja voté
 async def count_votes(opt, channel):
-    votes = []
+    votes = {}
     voters = []
-    for o in opt:
-        id_mes = 0
-        for x, y in o.items():
-            id_mes = x
-        if x == 0:
+    for x, o in enumerate(opt):
+        id_mes = opt[o]["id_message"]
+        if id_mes == 0 or id_mes is None:
             print("erreur id message")
             return
 
@@ -210,7 +222,10 @@ async def count_votes(opt, channel):
                     else:
                         voters.append(user)
                         count += 1
-        votes.append(count)
+        votes[x] = {
+            "nb_vote": count,
+            "id": o
+        }
     return votes
 
 
@@ -230,19 +245,24 @@ async def end_votes(channel):
     winv = -1
     numv = 0
     for x, v in enumerate(votes):
-        if v == maxv:
+        cv = votes[v]["nb_vote"]
+        if cv == maxv:
             numv += 1
-        if v > maxv:
-            maxv = v
+        if cv > maxv:
+            maxv = cv
             winv = x
             numv = 1
 
-        msg += f"Option {x+1} : {v} votes\n"
+        msg += f"Option {x+1} : {cv} votes\n"
     if numv > 1:
         winv = -1
         msg += f"Egalité"
     else:
+
         msg += f"\n **Option gagnante : {winv+1} avec {maxv} votes**\n"
+        winv = votes[winv]["id"]
+
+    print(f"winv : {winv}")
     ISSUES[CURRENT_ID]["option_taken"] = winv
     iss["option_taken"] = winv
     backup()
@@ -269,9 +289,12 @@ async def verif(ctx):
     if iss["time_start_countdown"] == 0:
         votes = await count_votes(opt, channel)
         cvotes = 0
-        for i in votes:
-            cvotes += i
-        print(f"{votes}")
+        lv = []
+        for v in votes:
+            cvotes += votes[v]["nb_vote"]
+            lv.append(votes[v]["nb_vote"])
+
+        print(f"{lv}")
         if cvotes >= MIN_BEFORE_COOLDOWN:
             ISSUES[CURRENT_ID]["time_start_countdown"] = time.time()
             iss["time_start_countdown"] = time.time()
@@ -391,11 +414,23 @@ async def delete(ctx, *id_mes):
 
 
 @bot.command(name='start', help="Force le setup d'un vote\nLimité aux admins")
-async def start(ctx):
+async def start(ctx, *debug):
     if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
         await ctx.send("Negatif")
         return
-    await start_vote(ctx)
+    if len(debug) == 0:
+        response = requests.get(
+            f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&q=issues",
+            headers={
+                'User-Agent': 'Controlistania Discord Bot - owner:timothee.bouvin@gmail.com',
+                'X-Password': PASSWORD
+            },
+        )
+        n = defusedxml.ElementTree.fromstring(response.text)
+        await start_vote(ctx, n)
+    else:
+        print("start debug")
+        await start_vote(ctx, INPUT_XML)
 
 
 @bot.command(name='resume', help="Relance le processus de vote à partir du backup\nDemande l'id du vote\nà n'utiliser que si le bot s'est arreté en cours de vote\nRéservé aux admins")
@@ -440,13 +475,16 @@ async def res(ctx):
     await results(ctx.channel, RESULTS_XML)
 
 
-@bot.command(name='resxml', help='Pong!')
+@bot.command(name='resxml', help='Enregistre dans un fichier le contenu xml de la derniere reponse\nLimité aux admins')
 async def resxml(ctx):
     if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
         await ctx.send("Negatif")
         return
     if ISSUE_RESULTS is not None:
-        await ctx.send(ISSUE_RESULTS)
+        with open("results_dump.txt", mode="w+") as x:
+            x.truncate(0)
+            x.write(ISSUE_RESULTS)
+            x.close()
     else:
         await ctx.send("Pas de résultat à montrer, sorry")
 
@@ -460,7 +498,7 @@ async def on_ready():
     print(f'{bot.user} is connected to the following guild:')
     for guild in bot.guilds:
         print(f'-{guild.name}')
-    print(f'{bot.user} has started')
+    print(f'{bot.user} has started (debug version)')
 
 
 # lance le bot

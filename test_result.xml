@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <NATION id="controlistania">
-   <ISSUE id="635" choice="2">
+   <ISSUE id="99999" choice="27">
       <OK>1</OK>
-      <DESC>it's considered a valid legal defence to say "a demon made me do it"</DESC>
+      <DESC>Ceci est un message de debug</DESC>
       <RANKINGS>
          <RANK id="0">
             <SCORE>65.81</SCORE>
@@ -303,22 +303,23 @@
       <UNLOCKS>
          <BANNER>b25</BANNER>
          <BANNER>d6</BANNER>
-         <BANNER>p9</BANNER>
-         <BANNER>r11</BANNER>
-         <BANNER>p2</BANNER>
-         <BANNER>p8</BANNER>
       </UNLOCKS>
       <RECLASSIFICATIONS>
          <RECLASSIFY type="0">
             <FROM>Below Average</FROM>
             <TO>Very Good</TO>
          </RECLASSIFY>
+         <RECLASSIFY type="1">
+            <FROM>Below Average</FROM>
+            <TO>Very Good</TO>
+         </RECLASSIFY>
+         <RECLASSIFY type="2">
+            <FROM>Below Average</FROM>
+            <TO>Very Good</TO>
+         </RECLASSIFY>
       </RECLASSIFICATIONS>
       <HEADLINES>
          <HEADLINE>Grandparents Rarer, More Appreciated</HEADLINE>
-         <HEADLINE>Cars Driving Controlistania To Speedy Future</HEADLINE>
-         <HEADLINE>Sunscreen Sales Grow</HEADLINE>
-         <HEADLINE>Crime Has Never Been Worse, Say Elderly</HEADLINE>
       </HEADLINES>
    </ISSUE>
 </NATION>

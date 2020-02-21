@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NATION id="controlistania">
+   <ISSUES>
+      <ISSUE id="99999">
+         <TITLE>Test Debug</TITLE>
+         <TEXT>This is test</TEXT>
+         <AUTHOR>junkula</AUTHOR>
+         <EDITOR>lenyo, ransium</EDITOR>
+         <PIC1>p8</PIC1>
+         <PIC2>tv1</PIC2>
+         <OPTION id="3">id 3</OPTION>
+         <OPTION id="1">id 1</OPTION>
+         <OPTION id="27">id 27</OPTION>
+         <OPTION id="352">id 352</OPTION>
+      </ISSUE>
+   </ISSUES>
+</NATION>
