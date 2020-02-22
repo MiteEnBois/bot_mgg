@@ -334,9 +334,9 @@ async def results(channel, xml):
     msg += f"Le problème **#{id_issue}** (*{text_issue}*) a été résolu via l'option **{choice_issue+1}**.\n"
     msg += f"**{desc.upper()}**\n"
     await channel.send(msg)
-
+    msg = ""
     if issue.find("UNLOCKS") is not None:
-        msg = "**__Unlocks : __**\n"
+        msg += "**__Unlocks : __**\n"
         for unlock in issue.find("UNLOCKS"):
             if unlock.tag.lower() == "banner":
                 title = BANNER_TITLES[unlock.text].replace("(Name)", NATION)
