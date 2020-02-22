@@ -1,16 +1,13 @@
 import asyncio
 import os
-import json
 import yaml
-import datetime
 import discord
 import time
 import math
 import re
 import requests
 from random import shuffle
-import defusedxml.ElementTree
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as DT
 from copy import deepcopy
 from discord.ext import commands
 from discord.ext import tasks
@@ -35,8 +32,8 @@ EMOJI_VOTE = ["☑️", "✅"]
 EMOJI = [":apple:", ":pineapple:", ":kiwi:", ":cherries:", ":banana:", ":eggplant:", ":tomato:", ":corn:", ":carrot:"]
 NATION = 'controlistania'
 PATH = 'vote.yml'
-RESULTS_XML = ET.parse("test_result.xml")
-INPUT_XML = ET.parse("test_input.xml")
+RESULTS_XML = DT.parse("test_result.xml")
+INPUT_XML = DT.parse("test_input.xml")
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -117,7 +114,7 @@ def check_idop():
             'X-Password': PASSWORD
         },
     )
-    n = defusedxml.ElementTree.fromstring(response.text)
+    n = DT.fromstring(response.text)
 
     for i in n.find('ISSUES').findall('ISSUE'):
 
@@ -197,7 +194,7 @@ async def launch_issue(issue, option):
     # global ISSUE_RESULTS
     # ISSUE_RESULTS = response.text
     # print(response.text)
-    # n = defusedxml.ElementTree.fromstring(response.text)
+    # n = DT.fromstring(response.text)
     # return n
     return RESULTS_XML
 
@@ -433,7 +430,7 @@ async def start(ctx, *debug):
                 'X-Password': PASSWORD
             },
         )
-        n = defusedxml.ElementTree.fromstring(response.text)
+        n = DT.fromstring(response.text)
         await start_vote(ctx, n)
     else:
         print("start debug")
