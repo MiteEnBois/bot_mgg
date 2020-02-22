@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 # ----------------------------- SETUP VARIABLES GLOBALES ET BOT
 
 global NATION, PASSWORD, GUILD_ID, GUILD, CHANNEL_ISSUES_ID, CHANNEL, ISSUES, PATH, EMOJI, UPDATE, COOLDOWN_VOTE, RAPPEL
-global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, INPUT_XML, ROLE_PING, CURRENT_ID, ISSUE_RESULTS
+global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, INPUT_XML, ROLE_PING, CURRENT_ID, ISSUE_RESULTS, BANNER_TITLES
 
 UPDATE = 20
 COOLDOWN_VOTE = 60*60*3
@@ -48,9 +48,11 @@ bot = commands.Bot(command_prefix=';')
 
 # ----------------------------- LECTURE DES FICHIERS
 
-# Charge la liste des rangs lors du lancement de l'application
-with open("list_rank.yml") as f:
-    LIST_RANK_ID = yaml.load(f, Loader=yaml.FullLoader)
+# Charge la liste des rangs et des bannieres lors du lancement de l'application
+with open("list_data.yml") as f:
+    data = yaml.load(f, Loader=yaml.FullLoader)
+    LIST_RANK_ID = data["ranks"]
+    BANNER_TITLES = data["banners"]
     f.close()
 
 # Charge le backup de la liste d'issue dans le dictionnaire ISSUES
@@ -339,7 +341,13 @@ async def results(channel, xml):
     if issue.find("UNLOCKS") is not None:
         msg = "**__Unlocks : __**\n"
         for unlock in issue.find("UNLOCKS"):
-            msg += f"{unlock.tag.lower()} : {unlock.text}\n"
+            if unlock.tag.lower() == "banner":
+                title = BANNER_TITLES[unlock.text].replace("(Name)", NATION)
+                msg += f"**{title}**\nhttps://www.nationstates.net/images/banners/samples/{unlock.text}.jpg\n"
+            else:
+                msg += f"{unlock.tag.lower()} : {unlock.text}\n"
+        # await channel.send(msg)
+        # msg = ""
 
     if issue.find("RECLASSIFICATIONS") is not None and issue.find("RECLASSIFICATIONS").findall("RECLASSIFY") is not None:
         msg += "**__Reclassification : __**\n"
