@@ -324,11 +324,15 @@ async def results(channel, xml):
     issue = xml.find("ISSUE")
     desc = issue.find("DESC").text
     id_issue = int(issue.get("id"))
-    text_issue = ISSUES[id_issue]["title_text"]
-
+    origin = None
+    if issue == 99999:
+        origin = INPUT_XML
+    else:
+        origin = ISSUES
+    text_issue = origin[id_issue]["title_text"]
     choice_issue = int(issue.get("choice"))
     text_option = ""
-    for x, y in ISSUES[id_issue]["option_msg_id"][choice_issue].items():
+    for x, y in origin[id_issue]["option_msg_id"][choice_issue].items():
         text_option = y
     msg += f"__**RESOLUTION DE PROBLEME**__\n"
     msg += f"Le problème **#{id_issue}** (*{text_issue}*) a été résolu via l'option **{choice_issue+1}**.\n"
