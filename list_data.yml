@@ -84,256 +84,762 @@ ranks:
   86: "International Artwork"
   255: "Nations"
 banners:
-  l13: "Abandoned"
-  t25: "Above it All"
-  b1: "Air and Glass"
-  t1: "All Available Space"
-  e5: "All That Glitters"
-  i18: "An Apple a Day"
-  c13: "Artist's Impression"
-  c9: "Aspire"
-  l26: "At Rest"
-  x4: "Atomic Age"
-  f3: "Autumnal"
-  x6: "Avast!"
-  o10: "Beached"
-  c19: "Beating Heart"
-  i9: "Better When Bottled"
-  b19: "Between God and Rock"
-  k1: "Bike Lane"
-  q1: "Birds of a Feather"
-  i22: "Blue Sky Mining"
-  i17: "Book Repository"
-  i21: "Book Smarts"
-  l14: "Brave New World"
-  d2: "Bridge to Nowhere"
-  c1: "Bright Lights, Big City"
-  n5: "Budding Freedoms"
-  b11: "Business First"
-  l16: "Cavern"
-  v1: "Celestial Color"
-  p18: "Cheeky"
-  a1: "Chewing the Cud"
-  c8: "City of Sand"
-  t24: "City of Sticks"
-  i3: "Clean and Green"
-  b12: "Cold Hard Reality"
-  e3: "Conference"
-  b18: "Contemplation"
-  i15: "Conveyance"
-  d5: "Could Have Happened to Anyone"
-  h1: "Cracked"
-  o4: "Crisp Morning"
-  t21: "Crisp Village"
-  m4: "Cruise"
-  l45: "Cultivated"
-  z2: "Defiance"
-  i24: "Delicious"
-  b8: "Department of Oversight"
-  r9: "Detrimental Externality"
-  b15: "Dissent is Treason"
-  b6: "Domed"
-  r10: "Dumped"
-  h2: "Dune"
-  a4: "Early to Rise"
-  eg2: "Eggcellent Detective Work"
-  i2: "Energy Source"
-  i5: "Engine of Growth"
-  l3: "Every Road is a Story"
-  tv1: "Everyone Wants a Piece"
-  d3: "Exodus"
-  i7: "Export Sales"
-  p2: "Faces of (Name) #1"
-  p9: "Faces of (Name) #2"
-  p8: "Faces of (Name) #3"
-  p7: "Faces of (Name) #4"
-  p6: "Faces of (Name) #5"
-  p5: "Faces of (Name) #6"
-  p10: "Faces of (Name) #7"
-  p11: "Faces of (Name) #8"
-  p12: "Faces of (Name) #9"
-  p13: "Faces of (Name) #10"
-  p14: "Faces of (Name) #11"
-  p15: "Faces of (Name) #12"
-  p16: "Faces of (Name) #13"
-  p21: "Faces of (Name) #14"
-  p4: "(Demonym) Fashion"
-  c5: "Fast Lane"
-  t19: "Father Knows Best"
-  l20: "Fields of Gold"
-  i23: "The Fish Are Worth It"
-  g1: "Form and Function"
-  i12: "Foundry"
-  m6: "From Above"
-  a5: "From the Earth"
-  w2: "The Future is Near"
-  b22: "Gatekeepers"
-  n2: "Genetic Warfare"
-  p22: "Giving Back"
-  g2: "Glory to the Government"
-  l34: "Go It Alone"
-  i11: "Gone Fission"
-  l22: "Gray Power"
-  z1: "Great Works"
-  t26: "Green is the Morrow"
-  b20: "Hallowed Halls"
-  i14: "The Hand That Feeds"
-  p3: "Handheld"
-  f4: "Happy Trails"
-  t5: "High-Density Culture"
-  l12: "Hiking"
-  l44: "The Hills are Alive"
-  l2: "Hilly Terrain"
-  k4: "Holy Warriors"
-  t10: "Holy Water"
-  r5: "Home"
-  l35: "Home Alone"
-  o2: "Homeward, with Ripples"
-  l17: "Hostile Elements"
-  t8: "Icy Gaze"
-  l36: "Immortal"
-  n3: "Improvements Can Be Made"
-  k2: "In My Sights"
-  d7: "Inconsistent Service Delivery"
-  c4: "Incremental Improvement"
-  x5: "Infected"
-  b4: "Interior Tech"
-  c14: "Island of Many Hills"
-  i16: "Jacked In"
-  p26: "Keeper of the Flame"
-  s1: "Keeping the Peace"
-  p24: "Kickball"
-  b7: "Leadership"
-  l41: "Life is a Mystery"
-  t6: "Light the Lamps"
-  b24: "Listening In"
-  i8: "Live Wire"
-  e4: "Making No Cents"
-  t22: "A Many Splendored Land"
-  m8: "Material Disadvantage"
-  n1: "Medical Innovation"
-  b16: "Medieval"
-  c15: "Mega-Metropolis"
-  l40: "Mesa"
-  c3: "Metropolis"
-  b3: "Minimalist Curves"
-  f1: "Misty Morning"
-  i1: "Model of Efficiency"
-  c6: "Modern Steel"
-  b2: "Modern Style"
-  m3: "A Moment's Peace"
-  t16: "Morning Calm"
-  p1: "Mother and Child"
-  s3: "National Pride"
-  b14: "Needs of the Many"
-  o9: "New Around Here"
-  l19: "A New Day"
-  b17: "Nice for Some"
-  t27: "Nice Part of Town"
-  c20: "No Limits"
-  w1: "No Moisture Required"
-  u1: "No Rest for the Young"
-  d4: "Not Sure What's Happening Here"
-  r11: "Nothing to See Here"
-  l24: "Oasis"
-  eg1: "Oblong Secrets"
-  p20: "Ocean Frolics"
-  o3: "Ocean Nova"
-  l31: "Old Ways are Best"
-  i26: "On Rails"
-  a6: "On the Menu"
-  t9: "On the Water"
-  e2: "Open for Business"
-  t4: "The Other Way"
-  x1: "Out There"
-  l11: "Outdoor Pursuits"
-  t11: "Oversight"
-  b23: "Palatial"
-  m5: "Patrol"
-  l29: "Pause for Sightseeing"
-  m7: "Peacekeepers"
-  l18: "Perched"
-  b25: "Perspective"
-  g3: "Pillar of Society"
-  i4: "Piped Profits"
-  i13: "Platform for Expansion"
-  p23: "Popular Uprising"
-  p17: "Power from the People"
-  c16: "Power Grid"
-  a3: "Productive Soil"
-  c7: "Progress is Movement"
-  c10: "Progress is Thirsty Work"
-  k3: "Protector"
-  i20: "Puffing Billy"
-  t14: "Queen of the Hill"
-  i19: "Railworks"
-  l1: "Red Dawn"
-  l25: "Remembered"
-  b9: "Removed"
-  c11: "Renovator's Delight"
-  o5: "Respected"
-  l30: "Retirement"
-  l10: "Revolving"
-  e1: "Ride the Wave"
-  c2: "River City"
-  l21: "Rock of Ages"
-  l37: "Rocky Endeavor"
-  a2: "Rush Hour"
-  l7: "Sand and Rock"
-  l39: "Scenic Slag Heap"
-  r8: "The Sea Remembers"
-  t17: "Seat of Power"
-  b13: "Secure"
-  l28: "Seeing in the Dawn"
-  r6: "Seen Better Days"
-  r2: "Seen Much Better Days"
-  b5: "Server Room"
-  o8: "Shacked Up"
-  t23: "Simple Life"
-  c17: "Skyward"
-  i25: "Slice of Life"
-  d1: "Slight Crime Problem"
-  r3: "Slumming"
-  r4: "Small Business"
-  l42: "Snowed In"
-  l8: "Sole Survivor"
-  l4: "Some Climbing Required"
-  l23: "Something Better"
-  b21: "Stadium"
-  l43: "Stand Alone"
-  p19: "Starting Out"
-  c18: "Steel and Glass"
-  r7: "Stories to Tell"
-  t18: "Summer Residence"
-  t15: "The Sun Always Rises"
-  m2: "Sunset Escort"
-  f5: "Tall Timber"
-  m1: "Tanks for Everything"
-  l32: "Temperature Dropping"
-  n4: "There Are Always More Questions"
-  x3: "There Will Be Blood"
-  l33: "There's a Whole World Out Here"
-  c21: "They Grow Up So Fast"
-  s2: "Thickening Blue Line"
-  p25: "Together"
-  l9: "Tourist Destination"
-  i6: "Trade Hub"
-  t13: "Tranquility"
-  f2: "Treefall"
-  l5: "Trespassers Will Be Prosecuted"
-  r1: "Trickle Down"
-  l6: "Unbeaten Path"
-  t12: "Under and Over"
-  u2: "Underbelly"
-  c12: "Urban Sprawl"
-  x2: "Vats Entertainment"
-  i10: "Vaults of Knowledge"
-  o1: "Very Fishy"
-  t2: "Vista"
-  wa1: "A Voice at the Table"
-  o6: "Waking in Paradise"
-  d6: "White Whale"
-  t20: "Window Shopping"
-  l38: "Windswept"
-  w3: "The Worlds Above Us"
-  b10: "You Didn't Build That"
+  l13:
+    name: "Abandoned"
+    criteria: "Exhibit a disturbingly low average lifespan"
+  t25:
+    name: "Above it All"
+    criteria: "Develop a stoic, dispassionate citizenry"
+  b1:
+    name: "Air and Glass"
+    criteria: "Develop a technologically literate populace that doesn't care that much"
+  t1:
+    name: "All Available Space"
+    criteria: "Run a below-average but not terrible economy"
+  e5:
+    name: "All That Glitters"
+    criteria: "Combine a thriving economy with significant corruption and inequality"
+  i18:
+    name: "An Apple a Day"
+    criteria: "Encourage healthy eating"
+  c13:
+    name: "Artist's Impression"
+    criteria: "Develop high levels of economic freedom in a nation of at least 250 million citizens"
+  c9:
+    name: "Aspire"
+    criteria: "Develop a strong economy in a scientifically advanced nation with a good environment"
+  l26:
+    name: "At Rest"
+    criteria: "Eliminate the elderly"
+  x4:
+    name: "Atomic Age"
+    criteria: "Build bigger bombs"
+  f3:
+    name: "Autumnal"
+    criteria: "See in your first national birthday"
+  x6:
+    name: "Avast!"
+    criteria: "Keel-haul scurvy dogs"
+  o10:
+    name: "Beached"
+    criteria: "Develop a compassionate populace in a nation with a good environment"
+  c19:
+    name: "Beating Heart"
+    criteria: "Reach 300 million citizens with a very strong economy and a non-terrible environment"
+  i9:
+    name: "Better When Bottled"
+    criteria: "Develop a thriving bottled goods industry"
+  b19:
+    name: "Between God and Rock"
+    criteria: "Provide significant public funding for religion"
+  k1:
+    name: "Bike Lane"
+    criteria: "Ban automobiles"
+  q1:
+    name: "Birds of a Feather"
+    criteria: "Be endorsed by six nations at once"
+  i22:
+    name: "Blue Sky Mining"
+    criteria: "Develop a strong mining industry"
+  i17:
+    name: "Book Repository"
+    criteria: "Develop quality libraries"
+  i21:
+    name: "Book Smarts"
+    criteria: "Develop a nation of readers"
+  l14:
+    name: "Brave New World"
+    criteria: "Found a region"
+  d2:
+    name: "Bridge to Nowhere"
+    criteria: "Overlook education"
+  c1:
+    name: "Bright Lights, Big City"
+    criteria: "Combine 1 billion citizens with a very strong economy"
+  n5:
+    name: "Budding Freedoms"
+    criteria: "Develop high recreational drug use"
+  b11:
+    name: "Business First"
+    criteria: "Prioritize commerce"
+  l16:
+    name: "Cavern"
+    criteria: "Give tourism a state-funded helping hand to promote an excellent environment"
+  v1:
+    name: "Celestial Color"
+    criteria: "Embrace the one true faith"
+  p18:
+    name: "Cheeky"
+    criteria: "Take it all off"
+  a1:
+    name: "Chewing the Cud"
+    criteria: "Prioritize agriculture-based industries"
+  c8:
+    name: "City of Sand"
+    criteria: "Combine a population of 200 million with a terrible environment"
+  t24:
+    name: "City of Sticks"
+    criteria: "Combine a beautiful environment with a weak economy"
+  i3:
+    name: "Clean and Green"
+    criteria: "Fund environmental initiatives"
+  b12:
+    name: "Cold Hard Reality"
+    criteria: "Eliminate public healthcare"
+  e3:
+    name: "Conference"
+    criteria: "Partner with private industry"
+  b18:
+    name: "Contemplation"
+    criteria: "Develop a faithful populace"
+  i15:
+    name: "Conveyance"
+    criteria: "Develop a strong transportation plan"
+  d5:
+    name: "Could Have Happened to Anyone"
+    criteria: "Combine sub-par intelligence with a beautiful environment"
+  h1:
+    name: "Cracked"
+    criteria: "Have trouble attracting tourists"
+  o4:
+    name: "Crisp Morning"
+    criteria: "Address 75 issues"
+  t21:
+    name: "Crisp Village"
+    criteria: "Develop a cultured, self-centered nation of at least 40 million citizens"
+  m4:
+    name: "Cruise"
+    criteria: "Build an extremely large military"
+  l45:
+    name: "Cultivated"
+    criteria: "Provide government support for parks and nature reserves"
+  z2:
+    name: "Defiance"
+    criteria: "Cultivate a nation of activists"
+  i24:
+    name: "Delicious"
+    criteria: "Support the dairy industry"
+  b8:
+    name: "Department of Oversight"
+    criteria: "Clamp down on political freedom"
+  r9:
+    name: "Detrimental Externality"
+    criteria: "Seriously prioritize the economy over the environment"
+  b15:
+    name: "Dissent is Treason"
+    criteria: "Harshly suppress political opposition"
+  b6:
+    name: "Domed"
+    criteria: "Develop excellent political freedoms"
+  r10:
+    name: "Dumped"
+    criteria: "Eliminate environmental protections"
+  h2:
+    name: "Dune"
+    criteria: "Enhance the environment by removing trees"
+  a4:
+    name: "Early to Rise"
+    criteria: "Develop a thriving agriculture sector"
+  eg2:
+    name: "Eggcellent Detective Work"
+    criteria: "Collect four easter eggs"
+  i2:
+    name: "Energy Source"
+    criteria: "Power the economy without mining"
+  i5:
+    name: "Engine of Growth"
+    criteria: "Develop a strong automotive industry"
+  l3:
+    name: "Every Road is a Story"
+    criteria: "Write five or more dispatches or factbooks"
+  tv1:
+    name: "Everyone Wants a Piece"
+    criteria: "Develop a thriving entertainment industry"
+  d3:
+    name: "Exodus"
+    criteria: "Combine a terrible economy with a terrible environment"
+  i7:
+    name: "Export Sales"
+    criteria: "Develop a thriving industry"
+  p2:
+    name: "Faces of ( name) #1"
+    criteria: "Develop above average civil rights"
+  p9:
+    name: "Faces of ( name) #2"
+    criteria: "Develop very good civil rights"
+  p8:
+    name: "Faces of ( name) #3"
+    criteria: "Develop very good civil rights"
+  p7:
+    name: "Faces of ( name) #4"
+    criteria: "Develop excellent civil rights"
+  p6:
+    name: "Faces of ( name) #5"
+    criteria: "Develop excellent civil rights"
+  p5:
+    name: "Faces of ( name) #6"
+    criteria: "Develop superb civil rights"
+  p10:
+    name: "Faces of ( name) #7"
+    criteria: "Develop superb civil rights"
+  p11:
+    name: "Faces of ( name) #8"
+    criteria: "Develop world benchmark civil rights"
+  p12:
+    name: "Faces of ( name) #9"
+    criteria: "Develop world benchmark civil rights"
+  p13:
+    name: "Faces of ( name) #10"
+    criteria: "Develop world benchmark civil rights"
+  p14:
+    name: "Faces of ( name) #11"
+    criteria: "Develop excessive civil rights"
+  p15:
+    name: "Faces of ( name) #12"
+    criteria: "Develop excessive civil rights"
+  p16:
+    name: "Faces of ( name) #13"
+    criteria: "Develop frightening civil rights"
+  p21:
+    name: "Faces of ( name) #14"
+    criteria: "Develop frightening civil rights"
+  p4:
+    name: "(Demonym) Fashion"
+    criteria: "Develop a world-class fashion industry"
+  c5:
+    name: "Fast Lane"
+    criteria: "Choose cars over environment"
+  t19:
+    name: "Father Knows Best"
+    criteria: "Become a Father Knows Best state"
+  l20:
+    name: "Fields of Gold"
+    criteria: "Become a World Assembly Delegate"
+  i23:
+    name: "The Fish Are Worth It"
+    criteria: "Support the fishing industry"
+  g1:
+    name: "Form and Function"
+    criteria: "Guide the political process with a firm hand"
+  i12:
+    name: "Foundry"
+    criteria: "Develop a solid industrial base"
+  m6:
+    name: "From Above"
+    criteria: "Build a very large military"
+  a5:
+    name: "From the Earth"
+    criteria: "Enforce compulsory vegetarianism"
+  w2:
+    name: "The Future is Near"
+    criteria: "Make contact"
+  b22:
+    name: "Gatekeepers"
+    criteria: "Develop high levels of corruption"
+  n2:
+    name: "Genetic Warfare"
+    criteria: "Combine a strong military with advanced medical research"
+  p22:
+    name: "Giving Back"
+    criteria: "Extend your citizens' average lifespan beyond 70 years"
+  g2:
+    name: "Glory to the Government"
+    criteria: "Develop a large, corrupt government"
+  l34:
+    name: "Go It Alone"
+    criteria: "Reject state-funded welfare"
+  i11:
+    name: "Gone Fission"
+    criteria: "Build nuclear power plants"
+  l22:
+    name: "Gray Power"
+    criteria: "Care for the elderly"
+  z1:
+    name: "Great Works"
+    criteria: "Be cultured and clever"
+  t26:
+    name: "Green is the Morrow"
+    criteria: "Address 100 issues"
+  b20:
+    name: "Hallowed Halls"
+    criteria: "Support traditional religion"
+  i14:
+    name: "The Hand That Feeds"
+    criteria: "Simultaneously develop strong automotive and agricultural sectors"
+  p3:
+    name: "Handheld"
+    criteria: "Stay out of the bedroom"
+  f4:
+    name: "Happy Trails"
+    criteria: "Address 200 issues"
+  t5:
+    name: "High-Density Culture"
+    criteria: "Show an appreciation for the finer things"
+  l12:
+    name: "Hiking"
+    criteria: "Leverage a beautiful environment into a thriving tourism industry"
+  l44:
+    name: "The Hills are Alive"
+    criteria: "Develop a beautiful environment in a nation of 1 billion citizens"
+  l2:
+    name: "Hilly Terrain"
+    criteria: "Become a site supporter"
+  k4:
+    name: "Holy Warriors"
+    criteria: "Develop a faith-based military"
+  t10:
+    name: "Holy Water"
+    criteria: "Support a major religion"
+  r5:
+    name: "Home"
+    criteria: "Develop a good economy with some income inequality"
+  l35:
+    name: "Home Alone"
+    criteria: "Develop a populace who like to keep to themselves"
+  o2:
+    name: "Homeward, with Ripples"
+    criteria: "Develop a thriving tourism industry"
+  l17:
+    name: "Hostile Elements"
+    criteria: "Develop a nation of at least 50 million citizens who aren't especially fond of strangers"
+  t8:
+    name: "Icy Gaze"
+    criteria: "Address 250 issues"
+  l36:
+    name: "Immortal"
+    criteria: "Address 300 issues"
+  n3:
+    name: "Improvements Can Be Made"
+    criteria: "Fund very advanced health research"
+  k2:
+    name: "In My Sights"
+    criteria: "Support the right to bear arms"
+  d7:
+    name: "Inconsistent Service Delivery"
+    criteria: "Abolish the government"
+  c4:
+    name: "Incremental Improvement"
+    criteria: "Develop a good economy in a nation of at least 200 million citizens"
+  x5:
+    name: "Infected"
+    criteria: "Deal with the undead"
+  b4:
+    name: "Interior Tech"
+    criteria: "Combine a strong IT industry with a powerhouse economy"
+  c14:
+    name: "Island of Many Hills"
+    criteria: "Develop a very strong economy in a nation of 2 billion citizens"
+  i16:
+    name: "Jacked In"
+    criteria: "Embrace technology"
+  p26:
+    name: "Keeper of the Flame"
+    criteria: "Support alternative religions"
+  s1:
+    name: "Keeping the Peace"
+    criteria: "Prioritize Law & Order"
+  p24:
+    name: "Kickball"
+    criteria: "Nurture a happy, free populace"
+  b7:
+    name: "Leadership"
+    criteria: "Take charge"
+  l41:
+    name: "Life is a Mystery"
+    criteria: "Cultivate a deeply spiritual populace"
+  t6:
+    name: "Light the Lamps"
+    criteria: "Become influential in a region"
+  b24:
+    name: "Listening In"
+    criteria: "Take a keen interest in what your citizens are doing"
+  i8:
+    name: "Live Wire"
+    criteria: "Outsource national power generation"
+  e4:
+    name: "Making No Cents"
+    criteria: "Free yourself from the tyranny of coins"
+  t22:
+    name: "A Many Splendored Land"
+    criteria: "Address 50 issues"
+  m8:
+    name: "Material Disadvantage"
+    criteria: "Build an inadequately-funded military"
+  n1:
+    name: "Medical Innovation"
+    criteria: "Fund advanced health research"
+  b16:
+    name: "Medieval"
+    criteria: "Reject modern ways"
+  c15:
+    name: "Mega-Metropolis"
+    criteria: "Combine 10 billion citizens with a powerhouse economy"
+  l40:
+    name: "Mesa"
+    criteria: "Address 15 issues"
+  c3:
+    name: "Metropolis"
+    criteria: "Combine 400 million citizens with a good economy"
+  b3:
+    name: "Minimalist Curves"
+    criteria: "Develop an extremely intelligent populace"
+  f1:
+    name: "Misty Morning"
+    criteria: "Protect the forests"
+  i1:
+    name: "Model of Efficiency"
+    criteria: "Prioritize the economy over the environment"
+  c6:
+    name: "Modern Steel"
+    criteria: "Reach 100 million citizens with an excellent environment and economy"
+  b2:
+    name: "Modern Style"
+    criteria: "Develop clever citizens"
+  m3:
+    name: "A Moment's Peace"
+    criteria: "Combine a strong military with civil rights"
+  t16:
+    name: "Morning Calm"
+    criteria: "Achieve balance in all things"
+  p1:
+    name: "Mother and Child"
+    criteria: "Eliminate youth crime while maintaining civil rights"
+  s3:
+    name: "National Pride"
+    criteria: "Enforce compulsory military service"
+  b14:
+    name: "Needs of the Many"
+    criteria: "Enforce capital punishment"
+  o9:
+    name: "New Around Here"
+    criteria: "Found a nation!"
+  l19:
+    name: "A New Day"
+    criteria: "Change from one nation classification to another"
+  b17:
+    name: "Nice for Some"
+    criteria: "Simultaneously develop a strong economy and high income inequality"
+  t27:
+    name: "Nice Part of Town"
+    criteria: "Get cultured"
+  c20:
+    name: "No Limits"
+    criteria: "Abolish speed limits"
+  w1:
+    name: "No Moisture Required"
+    criteria: "Have a truly terrible environment"
+  u1:
+    name: "No Rest for the Young"
+    criteria: "Develop a problem with youth crime"
+  d4:
+    name: "Not Sure What's Happening Here"
+    criteria: "Be strange"
+  r11:
+    name: "Nothing to See Here"
+    criteria: "Develop a serious crime problem"
+  l24:
+    name: "Oasis"
+    criteria: "Be a regional hermit"
+  eg1:
+    name: "Oblong Secrets"
+    criteria: "Find an easter egg"
+  p20:
+    name: "Ocean Frolics"
+    criteria: "Make your people extremely cheerful"
+  o3:
+    name: "Ocean Nova"
+    criteria: "Develop a world-class environment"
+  l31:
+    name: "Old Ways are Best"
+    criteria: "Develop a low-tech but economically thriving nation"
+  i26:
+    name: "On Rails"
+    criteria: "Provide substantial public transport"
+  a6:
+    name: "On the Menu"
+    criteria: "Eat your national animal"
+  t9:
+    name: "On the Water"
+    criteria: "Prioritize the environment over the economy"
+  e2:
+    name: "Open for Business"
+    criteria: "Help your people do business"
+  t4:
+    name: "The Other Way"
+    criteria: "Develop a good economy without free markets"
+  x1:
+    name: "Out There"
+    criteria: "Become so technologically advanced, they don't even have a  name for it"
+  l11:
+    name: "Outdoor Pursuits"
+    criteria: "Combine a healthy populace, civil rights, and an excellent environment"
+  t11:
+    name: "Oversight"
+    criteria: "Fund Law & Order in a low-tech nation"
+  b23:
+    name: "Palatial"
+    criteria: "Develop very high levels of corruption"
+  m5:
+    name: "Patrol"
+    criteria: "Build a ridiculously large military"
+  l29:
+    name: "Pause for Sightseeing"
+    criteria: "Combine a pleasant environment with cars and low intelligence"
+  m7:
+    name: "Peacekeepers"
+    criteria: "Build a military"
+  l18:
+    name: "Perched"
+    criteria: "Divide into self-governing regions"
+  b25:
+    name: "Perspective"
+    criteria: "Believe in religious tolerance"
+  g3:
+    name: "Pillar of Society"
+    criteria: "Grow the government"
+  i4:
+    name: "Piped Profits"
+    criteria: "Develop a thriving soda industry"
+  i13:
+    name: "Platform for Expansion"
+    criteria: "Develop a very large industrial base"
+  p23:
+    name: "Popular Uprising"
+    criteria: "Defend the right to protest"
+  p17:
+    name: "Power from the People"
+    criteria: "Develop a keenly politically-aware populace"
+  c16:
+    name: "Power Grid"
+    criteria: "Boost education"
+  a3:
+    name: "Productive Soil"
+    criteria: "Develop a strong agriculture sector alongside a good environment"
+  c7:
+    name: "Progress is Movement"
+    criteria: "Develop a thriving gambling industry"
+  c10:
+    name: "Progress is Thirsty Work"
+    criteria: "Develop a strong economy in a collapsing environment"
+  k3:
+    name: "Protector"
+    criteria: "Know what's best"
+  i20:
+    name: "Puffing Billy"
+    criteria: "Provide low-tech public transport"
+  t14:
+    name: "Queen of the Hill"
+    criteria: "Address 30 issues"
+  i19:
+    name: "Railworks"
+    criteria: "Maintain a healthy economy in the absence of cars"
+  l1:
+    name: "Red Dawn"
+    criteria: "Revere a land-based animal"
+  l25:
+    name: "Remembered"
+    criteria: "Push average citizen lifespan below 50 years"
+  b9:
+    name: "Removed"
+    criteria: "Develop a religious yet uncaring populace"
+  c11:
+    name: "Renovator's Delight"
+    criteria: "Combine 100 million citizens with a weak economy"
+  o5:
+    name: "Respected"
+    criteria: "Be endorsed"
+  l30:
+    name: "Retirement"
+    criteria: "Extend your citizens' average lifespan beyond 80 years"
+  l10:
+    name: "Revolving"
+    criteria: "Explore alternative forms of energy"
+  e1:
+    name: "Ride the Wave"
+    criteria: "Trust the market"
+  c2:
+    name: "River City"
+    criteria: "Combine 100 million citizens with a reasonable economy"
+  l21:
+    name: "Rock of Ages"
+    criteria: "Be truly ancient"
+  l37:
+    name: "Rocky Endeavor"
+    criteria: "Address 150 issues"
+  a2:
+    name: "Rush Hour"
+    criteria: "Develop a strong cattle industry"
+  l7:
+    name: "Sand and Rock"
+    criteria: "Attribute 1% of annual deaths to people getting lost in the wilderness"
+  l39:
+    name: "Scenic Slag Heap"
+    criteria: "Develop a beautiful environment alongside a thriving mining industry"
+  r8:
+    name: "The Sea Remembers"
+    criteria: "Make sewage waste someone else's problem"
+  t17:
+    name: "Seat of Power"
+    criteria: "Develop a large, tasteful government"
+  b13:
+    name: "Secure"
+    criteria: "Fill the prisons"
+  l28:
+    name: "Seeing in the Dawn"
+    criteria: "Develop a population of at least 6 million citizens"
+  r6:
+    name: "Seen Better Days"
+    criteria: "Run a crumbling economy"
+  r2:
+    name: "Seen Much Better Days"
+    criteria: "Run a very poor economy"
+  b5:
+    name: "Server Room"
+    criteria: "Develop a strong technology industry"
+  o8:
+    name: "Shacked Up"
+    criteria: "Combine a good environment with below-average economy"
+  t23:
+    name: "Simple Life"
+    criteria: "Develop an issue with unemployment"
+  c17:
+    name: "Skyward"
+    criteria: "Reach 500 million citizens with a very strong economy"
+  i25:
+    name: "Slice of Life"
+    criteria: "Support the pizza industry"
+  d1:
+    name: "Slight Crime Problem"
+    criteria: "Develop a crippling crime problem in a reasonably wealthy nation of at least 500 million citizens"
+  r3:
+    name: "Slumming"
+    criteria: "Develop significant numbers of impoverished citizens"
+  r4:
+    name: "Small Business"
+    criteria: "Run a fragile economy or worse"
+  l42:
+    name: "Snowed In"
+    criteria: "Address ten issues"
+  l8:
+    name: "Sole Survivor"
+    criteria: "Develop an extremely strong timber industry"
+  l4:
+    name: "Some Climbing Required"
+    criteria: "Write a Factbook"
+  l23:
+    name: "Something Better"
+    criteria: "Reject industry"
+  b21:
+    name: "Stadium"
+    criteria: "Develop healthy citizens"
+  l43:
+    name: "Stand Alone"
+    criteria: "Eschew the military"
+  p19:
+    name: "Starting Out"
+    criteria: "Combine civil rights with a healthy economy"
+  c18:
+    name: "Steel and Glass"
+    criteria: "Reach 2 billion citizens with a strong economy"
+  r7:
+    name: "Stories to Tell"
+    criteria: "Publish a dispatch other than a Factbook"
+  t18:
+    name: "Summer Residence"
+    criteria: "Develop deep-rooted corruption with a taste for nice things"
+  t15:
+    name: "The Sun Always Rises"
+    criteria: "Exhibit low unemployment"
+  m2:
+    name: "Sunset Escort"
+    criteria: "Build a substantial military"
+  f5:
+    name: "Tall Timber"
+    criteria: "Develop a thriving timber industry"
+  m1:
+    name: "Tanks for Everything"
+    criteria: "Build a large military"
+  l32:
+    name: "Temperature Dropping"
+    criteria: "Develop an inhospitable climate"
+  n4:
+    name: "There Are Always More Questions"
+    criteria: "Become highly scientifically advanced"
+  x3:
+    name: "There Will Be Blood"
+    criteria: "Make sacrifices"
+  l33:
+    name: "There's a Whole World Out Here"
+    criteria: "Abolish computers"
+  c21:
+    name: "They Grow Up So Fast"
+    criteria: "Develop a good economy in a nation of 300 million citizens"
+  s2:
+    name: "Thickening Blue Line"
+    criteria: "Boost the police force"
+  p25:
+    name: "Together"
+    criteria: "Share the institution of marriage"
+  l9:
+    name: "Tourist Destination"
+    criteria: "Develop a culture-based tourism industry"
+  i6:
+    name: "Trade Hub"
+    criteria: "Develop a broad industrial base"
+  t13:
+    name: "Tranquility"
+    criteria: "Develop a pleasant environment in a religious nation"
+  f2:
+    name: "Treefall"
+    criteria: "Protect the land"
+  l5:
+    name: "Trespassers Will Be Prosecuted"
+    criteria: "Close the borders to immigration"
+  r1:
+    name: "Trickle Down"
+    criteria: "Develop high income inequality"
+  l6:
+    name: "Unbeaten Path"
+    criteria: "Become an Anarchy"
+  t12:
+    name: "Under and Over"
+    criteria: "Simultaneously develop low inequality and high culture"
+  u2:
+    name: "Underbelly"
+    criteria: "Combine heavy industry with crime"
+  c12:
+    name: "Urban Sprawl"
+    criteria: "Reach 5 billion citizens"
+  x2:
+    name: "Vats Entertainment"
+    criteria: "Embrace vats"
+  i10:
+    name: "Vaults of Knowledge"
+    criteria: "Develop a thriving publishing industry"
+  o1:
+    name: "Very Fishy"
+    criteria: "Revere a marine animal"
+  t2:
+    name: "Vista"
+    criteria: "Be cultured"
+  wa1:
+    name: "A Voice at the Table"
+    criteria: "Join the World Assembly"
+  o6:
+    name: "Waking in Paradise"
+    criteria: "Develop an extremely good environment"
+  d6:
+    name: "White Whale"
+    criteria: "Fail to prevent mistakes in the fishing industry"
+  t20:
+    name: "Window Shopping"
+    criteria: "Develop a cultured nation of at least 80 million with good civil rights"
+  l38:
+    name: "Windswept"
+    criteria: "Address six issues"
+  w3:
+    name: "The Worlds Above Us"
+    criteria: "Reach for the stars"
+  b10:
+    name: "You Didn't Build That"
+    criteria: "Engage in corporate welfare"

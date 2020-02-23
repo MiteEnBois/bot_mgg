@@ -334,13 +334,14 @@ async def results(channel, xml):
     msg += f"Le problème **#{id_issue}** (*{text_issue}*) a été résolu via l'option **{choice_issue+1}**.\n"
     msg += f"**{desc.upper()}**\n"
     await channel.send(msg)
-
+    msg = ""
     if issue.find("UNLOCKS") is not None:
-        msg = "**__Unlocks : __**\n"
+        msg += "**__Unlocks : __**\n"
         for unlock in issue.find("UNLOCKS"):
             if unlock.tag.lower() == "banner":
-                title = BANNER_TITLES[unlock.text].replace("(Name)", NATION)
-                msg += f"**{title}**\nhttps://www.nationstates.net/images/banners/samples/{unlock.text}.jpg\n"
+                title = BANNER_TITLES[unlock.text]["name"].replace("(Name)", NATION)
+                criteria = BANNER_TITLES[unlock.text]["criteria"]
+                msg += f"**{title}** (*{criteria}*)\nhttps://www.nationstates.net/images/banners/samples/{unlock.text}.jpg\n"
             else:
                 msg += f"{unlock.tag.lower()} : {unlock.text}\n"
         # await channel.send(msg)
@@ -372,13 +373,27 @@ async def results(channel, xml):
     print(len(msg))
 
     msg = "**__CHANGEMENT DE RANGS__**\n```c++\n"
-
+    dictranks = {}
     for r in issue.find("RANKINGS").findall("RANK"):
-        id_r = r.get("id")
+        id_r = int(r.get("id"))
         name = LIST_RANK_ID[int(id_r)]
         score = r.find("SCORE").text
         change = float(r.find("CHANGE").text)
         pchange = round(float(r.find("PCHANGE").text), 2)
+        dictranks[id_r] = {
+            "name": name,
+            "score": score,
+            "change": change,
+            "pchange": pchange
+        }
+
+    dictranks = sorted(dictranks.items(), key=lambda x: float(x[1]["pchange"]), reverse=True)
+    for r in dictranks:
+        id_r = r[0]
+        name = r[1]["name"]
+        score = r[1]["score"]
+        change = r[1]["change"]
+        pchange = r[1]["pchange"]
         if change >= 0 or pchange >= 0:
             sousmsg = f"{name} : {score} (+{change} ; +{pchange}%)\n"
             # sousmsg = f"{name} : +{pchange}%)\n"
