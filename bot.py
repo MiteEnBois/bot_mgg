@@ -134,7 +134,7 @@ async def start_vote(ctx, n):
         GUILD = ctx.guild
 
     issues = n.find('ISSUES').findall('ISSUE')
-    issue = issues[0]
+    issue = issues[len(issues)-1]
     issue_id = int(issue.get('id'))
     title = issue.find('TITLE').text
     text = issue.find("TEXT").text.replace("<i>", "*").replace("</i>", "*")
