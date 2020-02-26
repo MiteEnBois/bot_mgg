@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 
 # ----------------------------- SETUP VARIABLES GLOBALES ET BOT
 
-global NATION, PASSWORD, GUILD_ID, GUILD, CHANNEL_ISSUES_ID, CHANNEL, ISSUES, PATH, EMOJI, UPDATE, COOLDOWN_VOTE, RAPPEL
+global NATION, PASSWORD, GUILD, CHANNEL, ISSUES, PATH, EMOJI, UPDATE, COOLDOWN_VOTE, RAPPEL, BANNED_HOURS
 global EMOJI_VOTE, MIN_BEFORE_COOLDOWN, LIST_RANK_ID, RESULTS_XML, INPUT_XML, ROLE_PING, CURRENT_ID, ISSUE_RESULTS, BANNER_TITLES
 
 UPDATE = 20
@@ -27,6 +27,7 @@ CHANNEL = None
 GUILD = None
 ISSUE_RESULTS = None
 
+BANNED_HOURS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 23]
 ROLE_PING = "671696364056477707"
 EMOJI_VOTE = ["☑️", "✅"]
 EMOJI = [":apple:", ":pineapple:", ":kiwi:", ":cherries:", ":banana:", ":eggplant:", ":tomato:", ":corn:", ":carrot:"]
@@ -38,8 +39,6 @@ INPUT_XML = DT.parse("test_input.xml")
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 PASSWORD = os.getenv('PASSWORD')
-GUILD_ID = os.getenv('GUILD')
-CHANNEL_ISSUES_ID = os.getenv('CHANNEL_ISSUES')
 
 bot = commands.Bot(command_prefix=';')
 
@@ -103,6 +102,30 @@ def duree(t):
     txt += f"{s}s"
     return txt
 
+
+def define_guild_channel(ctx):
+    global CHANNEL, GUILD
+    GUILD = ctx.guild
+    CHANNEL = ctx.channel
+
+
+def print_xml(xml, tab=""):
+    if xml is None:
+        return
+    try:
+        print(f"{tab}<{xml.tag}>\n{tab}{xml.text}")
+    except AttributeError:
+        print(xml)
+    try:
+        for x in xml:
+            print_xml(x, f" {tab}")
+    except TypeError:
+        return
+    try:
+        print(f"{tab}</{xml.tag}>")
+    except AttributeError:
+        return
+
 # ----------------------------- FONCTIONS GESTION DE VOTE
 
 
@@ -125,17 +148,15 @@ def check_idop():
 
 
 # Setup un vote et lance verif()
-async def start_vote(ctx, n):
-    global CHANNEL, GUILD
-    CHANNEL = ctx.guild.get_channel(int(CHANNEL_ISSUES_ID))
-    if CHANNEL is None:
-        CHANNEL = ctx.channel
-    if ctx.guild.id == GUILD_ID:
-        GUILD = ctx.guild
-
-    issues = n.find('ISSUES').findall('ISSUE')
+async def start_vote(issues):
     issue = issues[len(issues)-1]
+
     issue_id = int(issue.get('id'))
+    try:
+        test = ISSUES[issue_id]
+        return 0
+    except KeyError:
+        print("started")
     title = issue.find('TITLE').text
     text = issue.find("TEXT").text.replace("<i>", "*").replace("</i>", "*")
     msg = embed(title, text, color=0xdb151b, footer=f"ID : {issue_id}")
@@ -170,7 +191,7 @@ async def start_vote(ctx, n):
         "time_posted": time.time(),
         "time_start_countdown": 0,
         "option_taken": -2,
-        "guild_id": CHANNEL.guild.id,
+        "guild_id": GUILD.id,
         "channel_id": CHANNEL.id
     }
 
@@ -179,11 +200,23 @@ async def start_vote(ctx, n):
 
     backup()
 
-    verif.start(ctx)
+    verif.start()
+    return 1
+
+
+def request_issues():
+    response = requests.get(
+        f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&q=issues",
+        headers={
+            'User-Agent': 'Controlistania Discord Bot - owner:timothee.bouvin@gmail.com',
+            'X-Password': PASSWORD
+        },
+    )
+    return DT.fromstring(response.text)
 
 
 # Envoie le résultat du vote et retourne l'xml reçu grace à la requete
-async def launch_issue(issue, option):
+def launch_issue(issue, option):
     response = requests.get(
         f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&c=issue&issue={issue}&option={option}",
         headers={
@@ -201,7 +234,8 @@ async def launch_issue(issue, option):
 
 # Compte les votes de la listes de messages dans le canal "channel" et renvoie un tableau contenant le nombre de vote de chaque option
 # Skip les votes d'un user ayant deja voté
-async def count_votes(opt, channel):
+async def count_votes(opt):
+    channel = CHANNEL
     votes = {}
     voters = []
     for x, o in enumerate(opt):
@@ -229,12 +263,13 @@ async def count_votes(opt, channel):
 
 # Conclut le vote. Utilise launch_issue() pour envoyer les résultats et obtenir le xml de retour, qu'il envoie ensuite à results()
 # Stoppe de force verif()
-async def end_votes(channel):
+async def end_votes():
+    channel = CHANNEL
     iss = ISSUES[CURRENT_ID]
     if CURRENT_ID == 0 or iss["option_taken"] != -2:
         await channel.send("Pas de vote en cours, annulation de la commande")
         return
-    votes = await count_votes(iss["option_msg_id"], channel)
+    votes = await count_votes(iss["option_msg_id"])
     print(votes)
     tp = math.floor(time.time()-iss["time_posted"])
     msg = "__**RESULTAT DES VOTES**__\n"
@@ -265,10 +300,55 @@ async def end_votes(channel):
     iss["option_taken"] = winv
     backup()
     await channel.send(msg)
-    xml = await launch_issue(CURRENT_ID, winv)
-    await results(channel, xml)
+    xml = launch_issue(CURRENT_ID, winv)
+    await results(xml)
     verif.stop()
 
+
+@tasks.loop(seconds=UPDATE*60, reconnect=True)
+async def check_start():
+    t = int(time.strftime("%H", time.gmtime()))+1  # sans le +1, représente l'heure à GMT+0, or on est en GMT+1
+    if t not in BANNED_HOURS:
+        n = request_issues()
+        # n = DT.fromstring("<NATION></NATION>")
+        if n is None or n.find('ISSUES') is None or n.find('ISSUES').find('ISSUE') is None or n.find('ISSUES').find('ISSUE').find('OPTION') is None:
+            # print_xml(n)
+            print("vide")
+            return
+        else:
+            try:
+                issues = n.find('ISSUES').findall('ISSUE')
+                iid = int(issues[len(issues)-1].get("id"))
+            except IndexError:
+                # sert au debogage
+                print("ID incorrecte")
+                print_xml(n)
+                print("stop")
+                check_start.stop()
+                return
+
+            print(f"id :{iid}")
+            if(CURRENT_ID == iid):
+                print(f"erreur : issue #{iid} deja en cours vote({CURRENT_ID})")
+            else:
+                try:
+                    ISSUES[iid]
+                except KeyError:
+                    started = await start_vote(issues)
+                    if started == 1:
+                        print("stop")
+                        check_start.stop()
+                        # print("stop")
+                    else:
+                        print("Erreur, pas pu commencer")
+                else:
+                    resumed = resume_issue(iid)
+                    if resumed == 1:
+                        print("stop")
+                        check_start.stop()
+    else:
+        print("pas dans l'horaire")
+        return
 
 # Boucle toutes les UPDATE secondes
 # Gere les conditions de fin de vote
@@ -276,7 +356,7 @@ async def end_votes(channel):
 # Si assez de gens ont votés, un temps limite est décidé (les votes ne seront plus comptés jusqu'à la fin du vote)
 # Quand la limite de temps est atteinte, les votes sont comptés une derniere fois, et le processus de cloture du vote peut démarrer
 @tasks.loop(seconds=UPDATE)
-async def verif(ctx):
+async def verif():
     iss = ISSUES[CURRENT_ID]
     opt = iss["option_msg_id"]
     guild = GUILD
@@ -285,7 +365,7 @@ async def verif(ctx):
         print("continue")
         return True
     if iss["time_start_countdown"] == 0:
-        votes = await count_votes(opt, channel)
+        votes = await count_votes(opt)
         cvotes = 0
         lv = []
         for v in votes:
@@ -312,13 +392,18 @@ async def verif(ctx):
                 await channel.send(f"Il reste {duree(RAPPEL)} avant la fin du vote!")
             return True
         else:
-            await end_votes(channel)
+            await end_votes()
             verif.stop()
+            print("start sleep")
+            await asyncio.sleep(10)
+            print("stop sleep, go")
+            check_start.start()
             return False
 
 
 # Converti l'xml de résultats en messages clairs
-async def results(channel, xml):
+async def results(xml):
+    channel = CHANNEL
     msg = ""
     # issue = RESULTS_XML.find("ISSUE")
     issue = xml.find("ISSUE")
@@ -351,7 +436,7 @@ async def results(channel, xml):
         # await channel.send(msg)
         # msg = ""
 
-    if issue.find("RECLASSIFICATIONS") is not None and issue.find("RECLASSIFICATIONS").findall("RECLASSIFY") is not None:
+    if issue.find("RECLASSIFICATIONS") is not None and issue.find("RECLASSIFICATIONS").find("RECLASSIFY") is not None:
         msg += "**__Reclassification : __**\n"
         for r in issue.find("RECLASSIFICATIONS").findall("RECLASSIFY"):
             rtype = LIST_RANK_ID[int(r.get("type"))]
@@ -374,7 +459,7 @@ async def results(channel, xml):
         for p in issue.find("REMOVED_POLICIES"):
             msg += f"{p.tag} : {p.text}\n"
     await channel.send(msg)
-    print(len(msg))
+    print(f"Message infos : {len(msg)}")
 
     msg = "**__CHANGEMENT DE RANGS__**\n```c++\n"
     dictranks = {}
@@ -412,7 +497,7 @@ async def results(channel, xml):
             msg += sousmsg
     if(len(msg) < 2000):
         await channel.send(msg+"```")
-        print(len(msg))
+        print(f"dernier message : {len(msg)}")
     else:
         await channel.send(f"trop long({len(msg)}), print envoyé")
         print(msg)
@@ -436,24 +521,24 @@ async def delete(ctx, *id_mes):
     await ctx.message.delete()
 
 
-@bot.command(name='start', help="Force le setup d'un vote\nLimité aux admins")
-async def start(ctx, *debug):
+@bot.command(name='forcestart', help="Force le setup d'un vote\nLimité aux admins")
+async def forcestart(ctx, *debug):
     if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
         await ctx.send("Negatif")
         return
     if len(debug) == 0:
-        response = requests.get(
-            f"https://www.nationstates.net/cgi-bin/api.cgi?nation={NATION}&q=issues",
-            headers={
-                'User-Agent': 'Controlistania Discord Bot - owner:timothee.bouvin@gmail.com',
-                'X-Password': PASSWORD
-            },
-        )
-        n = DT.fromstring(response.text)
-        await start_vote(ctx, n)
+        n = request_issues()
+        if n is None or n.find('ISSUES') is None or n.find('ISSUES').find('ISSUE') is None or n.find('ISSUES').find('ISSUE').find('OPTION') is None:
+            await ctx.send("Pas d'issues :(")
+            return
+        else:
+            define_guild_channel(ctx)
+            started = await start_vote(n)
+            if started == 0:
+                await ctx.send("Erreur lors du lancement")
     else:
         print("start debug")
-        await start_vote(ctx, INPUT_XML)
+        await start_vote(INPUT_XML)
 
 
 @bot.command(name='resume', help="Relance le processus de vote à partir du backup\nDemande l'id du vote\nà n'utiliser que si le bot s'est arreté en cours de vote\nRéservé aux admins")
@@ -464,22 +549,37 @@ async def resume(ctx, id_issue):
     if id_issue is None:
         await ctx.send("Besoin d'un id svp")
         return
-    global CHANNEL, GUILD, CURRENT_ID
-    CURRENT_ID = int(id_issue)
-    if ISSUES[CURRENT_ID]["option_taken"] != -2:
-        print(f"{CURRENT_ID} a deja recu un vote, annulation de la commande")
-        await ctx.send(f"{CURRENT_ID} a deja recu un vote, annulation de la commande")
+    try:
+        ISSUES[int(id_issue)]
+    except KeyError:
+        await ctx.send("Cet id n'existe pas dans la base de donnée")
         return
+    resumed = resume_issue(id_issue)
+    if resumed == 0:
+        await ctx.send(f"{id_issue} a deja recu un vote")
+    elif resumed == -1:
+        await ctx.send("Le canal n'a pas été trouvé")
+    elif resumed == 1:
+        await ctx.send(f"{CURRENT_ID} resumed")
 
-    CHANNEL = ctx.guild.get_channel(int(CHANNEL_ISSUES_ID))
+
+def resume_issue(id_issue):
+    global CHANNEL, GUILD, CURRENT_ID
+
+    if ISSUES[int(id_issue)]["option_taken"] != -2:
+        print(f"{CURRENT_ID} a deja recu un vote, annulation de la commande")
+        return 0
+    CURRENT_ID = int(id_issue)
+    for guild in bot.guilds:
+        if guild.id == ISSUES[CURRENT_ID]["guild_id"]:
+            GUILD = guild
+    CHANNEL = GUILD.get_channel(ISSUES[CURRENT_ID]["channel_id"])
     if CHANNEL is None:
-        CHANNEL = ctx.channel
-    if ctx.guild.id == GUILD_ID:
-        GUILD = ctx.guild
-
+        print(f"Le canal n'a pas été trouvé...\nID du canal sauvegardée : {ISSUES[CURRENT_ID]['channel_id']}")
+        return -1
     print(f"{CURRENT_ID} resumed")
-    await ctx.send(f"{CURRENT_ID} resumed")
-    verif.start(ctx)
+    verif.start()
+    return 1
 
 
 @bot.command(name='end', help="Conclut le vote actuel de force.\nRéservé aux admins")
@@ -487,7 +587,7 @@ async def end(ctx):
     if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
         await ctx.send("Negatif")
         return
-    await end_votes(ctx.channel)
+    await end_votes()
 
 
 @bot.command(name='res', help='Affiche un résultat de test\nLimité aux admins')
@@ -495,7 +595,7 @@ async def res(ctx):
     if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
         await ctx.send("Negatif")
         return
-    await results(ctx.channel, RESULTS_XML)
+    await results(RESULTS_XML)
 
 
 @bot.command(name='resxml', help='Enregistre dans un fichier le contenu xml de la derniere reponse\nLimité aux admins')
@@ -510,6 +610,19 @@ async def resxml(ctx):
             x.close()
     else:
         await ctx.send("Pas de résultat à montrer, sorry")
+
+
+@bot.command(name='start', help='Pong!')
+async def start(ctx):
+    if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
+        await ctx.send("Negatif")
+        return
+    try:
+        check_start.start()
+        define_guild_channel(ctx)
+    except RuntimeError:
+        await ctx.send("La commande est déjà en cours")
+    # await check_start()
 
 # ----------------------------- FIN SETUP
 
