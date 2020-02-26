@@ -27,7 +27,7 @@ CHANNEL = None
 GUILD = None
 ISSUE_RESULTS = None
 
-BANNED_HOURS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 23]
+BANNED_HOURS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23, 24]
 ROLE_PING = "671696364056477707"
 EMOJI_VOTE = ["☑️", "✅"]
 EMOJI = [":apple:", ":pineapple:", ":kiwi:", ":cherries:", ":banana:", ":eggplant:", ":tomato:", ":corn:", ":carrot:"]
