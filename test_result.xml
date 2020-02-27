@@ -94,127 +94,6 @@
             <CHANGE>17.48</CHANGE>
             <PCHANGE>0.589821</PCHANGE>
          </RANK>
-         <RANK id="24">
-            <SCORE>-6.16</SCORE>
-            <CHANGE>-0.24</CHANGE>
-            <PCHANGE>-4.054054</PCHANGE>
-         </RANK>
-         <RANK id="25">
-            <SCORE>-4.60</SCORE>
-            <CHANGE>0.34</CHANGE>
-            <PCHANGE>6.882591</PCHANGE>
-         </RANK>
-         <RANK id="26">
-            <SCORE>2732.67</SCORE>
-            <CHANGE>16.03</CHANGE>
-            <PCHANGE>0.590067</PCHANGE>
-         </RANK>
-         <RANK id="27">
-            <SCORE>8.25</SCORE>
-            <CHANGE>-0.12</CHANGE>
-            <PCHANGE>-1.433692</PCHANGE>
-         </RANK>
-         <RANK id="28">
-            <SCORE>310.53</SCORE>
-            <CHANGE>1.82</CHANGE>
-            <PCHANGE>0.589550</PCHANGE>
-         </RANK>
-         <RANK id="29">
-            <SCORE>828.08</SCORE>
-            <CHANGE>4.86</CHANGE>
-            <PCHANGE>0.590365</PCHANGE>
-         </RANK>
-         <RANK id="30">
-            <SCORE>517.55</SCORE>
-            <CHANGE>-202.77</CHANGE>
-            <PCHANGE>-28.149989</PCHANGE>
-         </RANK>
-         <RANK id="31">
-            <SCORE>414.04</SCORE>
-            <CHANGE>2.43</CHANGE>
-            <PCHANGE>0.590365</PCHANGE>
-         </RANK>
-         <RANK id="32">
-            <SCORE>286.24</SCORE>
-            <CHANGE>273.27</CHANGE>
-            <PCHANGE>2106.939090</PCHANGE>
-         </RANK>
-         <RANK id="36">
-            <SCORE>26.32</SCORE>
-            <CHANGE>1.93</CHANGE>
-            <PCHANGE>7.913079</PCHANGE>
-         </RANK>
-         <RANK id="37">
-            <SCORE>15.06</SCORE>
-            <CHANGE>-3.07</CHANGE>
-            <PCHANGE>-16.933260</PCHANGE>
-         </RANK>
-         <RANK id="41">
-            <SCORE>98.00</SCORE>
-            <CHANGE>1.00</CHANGE>
-            <PCHANGE>1.030928</PCHANGE>
-         </RANK>
-         <RANK id="42">
-            <SCORE>51.36</SCORE>
-            <CHANGE>-4.19</CHANGE>
-            <PCHANGE>-7.542754</PCHANGE>
-         </RANK>
-         <RANK id="43">
-            <SCORE>31.16</SCORE>
-            <CHANGE>-18.11</CHANGE>
-            <PCHANGE>-36.756647</PCHANGE>
-         </RANK>
-         <RANK id="44">
-            <SCORE>67.61</SCORE>
-            <CHANGE>-1.00</CHANGE>
-            <PCHANGE>-1.457513</PCHANGE>
-         </RANK>
-         <RANK id="45">
-            <SCORE>8.47</SCORE>
-            <CHANGE>-0.35</CHANGE>
-            <PCHANGE>-3.968254</PCHANGE>
-         </RANK>
-         <RANK id="46">
-            <SCORE>1552.65</SCORE>
-            <CHANGE>9.11</CHANGE>
-            <PCHANGE>0.590202</PCHANGE>
-         </RANK>
-         <RANK id="47">
-            <SCORE>31.74</SCORE>
-            <CHANGE>-14.62</CHANGE>
-            <PCHANGE>-31.535807</PCHANGE>
-         </RANK>
-         <RANK id="49">
-            <SCORE>10.01</SCORE>
-            <CHANGE>-0.35</CHANGE>
-            <PCHANGE>-3.378378</PCHANGE>
-         </RANK>
-         <RANK id="50">
-            <SCORE>98.39</SCORE>
-            <CHANGE>0.51</CHANGE>
-            <PCHANGE>0.521046</PCHANGE>
-         </RANK>
-         <RANK id="53">
-            <SCORE>432.62</SCORE>
-            <CHANGE>-120.16</CHANGE>
-            <PCHANGE>-21.737400</PCHANGE>
-         </RANK>
-         <RANK id="55">
-            <SCORE>65.00</SCORE>
-            <CHANGE>1.00</CHANGE>
-            <PCHANGE>1.562500</PCHANGE>
-         </RANK>
-         <RANK id="56">
-            <SCORE>70.36</SCORE>
-            <CHANGE>0.02</CHANGE>
-            <PCHANGE>0.028433</PCHANGE>
-         </RANK>
-         <RANK id="57">
-            <SCORE>724.57</SCORE>
-            <CHANGE>4.25</CHANGE>
-            <PCHANGE>0.590016</PCHANGE>
-         </RANK>
-         
       </RANKINGS>
       <UNLOCKS>
          <BANNER>l9</BANNER>
@@ -232,11 +111,16 @@
             <FROM>Below Average</FROM>
             <TO>Very Good</TO>
          </RECLASSIFY>
-         <RECLASSIFY type="2">
-            <FROM>Below Average</FROM>
-            <TO>Very Good</TO>
-         </RECLASSIFY>
       </RECLASSIFICATIONS>
+      <NEW_POLICIES>
+         <POLICY>
+            <NAME>No WMDs</NAME>
+            <PIC>x4</PIC>
+            <CAT>International</CAT>
+            <DESC>The nation opposes the use of WMDs.</DESC>
+         </POLICY>
+      </NEW_POLICIES>
+
       <HEADLINES>
          <HEADLINE>Grandparents Rarer, More Appreciated</HEADLINE>
       </HEADLINES>

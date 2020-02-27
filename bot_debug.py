@@ -448,19 +448,21 @@ async def results(xml):
         msg += "**__Headlines: __**\n"
         for h in issue.find("HEADLINES").findall("HEADLINE"):
             msg += f"{h.text}\n"
-
+    if len(msg) > 0:
+        await channel.send(msg)
+        msg = ""
     if issue.find("NEW_POLICIES") is not None:
         msg += "**__Nouvelles Stratégies : __**\n"
-        for p in issue.find("NEW_POLICIES"):
-            msg += f"{p.tag} : {p.text}\n"
-
+        for p in issue.find("NEW_POLICIES").findall("POLICY"):
+            msg += f"**{p.find('NAME').text}** : {p.find('DESC').text} ({p.find('CAT').text})\n"
+            msg += f"https://www.nationstates.net/images/banners/samples/{p.find('PIC').text}.jpg\n"
     if issue.find("REMOVED_POLICIES") is not None:
         msg += "**__Stratégies Enlevées : __**\n"
         for p in issue.find("REMOVED_POLICIES"):
             msg += f"{p.tag} : {p.text}\n"
-    await channel.send(msg)
-    print(f"Message infos : {len(msg)}")
 
+    print(f"Message infos : {len(msg)}")
+    await channel.send(msg)
     msg = "**__CHANGEMENT DE RANGS__**\n```c++\n"
     dictranks = {}
     for r in issue.find("RANKINGS").findall("RANK"):
@@ -595,6 +597,8 @@ async def res(ctx):
     if ctx.author.id != 123742890902945793 and ctx.author.id != 111552820225814528:
         await ctx.send("Negatif")
         return
+    if CHANNEL is None:
+        define_guild_channel(ctx)
     await results(RESULTS_XML)
 
 
