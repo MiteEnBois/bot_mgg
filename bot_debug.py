@@ -167,7 +167,7 @@ async def start_vote(issues):
     i = 1
     for option in issue.findall('OPTION'):
         txt = option.text.replace("<i>", "*").replace("</i>", "*")
-        msgoption = embed(fv=txt, num=i, color=0xecb440)
+        msgoption = embed(fv=txt, num=i, color=0xecb440, footer=f"ID : {option.get('id')}")
         option_message = await CHANNEL.send(embed=msgoption)
         options[int(option.get("id"))] = {
             "id_message": option_message.id,
