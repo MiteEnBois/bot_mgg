@@ -462,7 +462,9 @@ async def results(xml):
             msg += f"{p.tag} : {p.text}\n"
 
     print(f"Message infos : {len(msg)}")
-    await channel.send(msg)
+    if len(msg) > 0:
+        await channel.send(msg)
+        msg = ""
     msg = "**__CHANGEMENT DE RANGS__**\n```c++\n"
     dictranks = {}
     for r in issue.find("RANKINGS").findall("RANK"):
@@ -497,7 +499,7 @@ async def results(xml):
             msg = "```c++\n"+sousmsg
         else:
             msg += sousmsg
-    if(len(msg) < 2000):
+    if(len(msg) < 2000 and len(msg) > 0):
         await channel.send(msg+"```")
         print(f"dernier message : {len(msg)}")
     else:
