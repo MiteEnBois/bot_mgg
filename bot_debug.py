@@ -323,7 +323,6 @@ async def check_start():
                 # sert au debogage
                 print("ID incorrecte")
                 print_xml(n)
-                print("stop")
                 check_start.stop()
                 return
 
@@ -336,15 +335,12 @@ async def check_start():
                 except KeyError:
                     started = await start_vote(issues)
                     if started == 1:
-                        print("stop")
                         check_start.stop()
-                        # print("stop")
                     else:
                         print("Erreur, pas pu commencer")
                 else:
                     resumed = resume_issue(iid)
                     if resumed == 1:
-                        print("stop")
                         check_start.stop()
     else:
         print("pas dans l'horaire")
