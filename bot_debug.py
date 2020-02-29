@@ -412,6 +412,8 @@ async def results(xml):
         origin = ISSUES
     text_issue = origin[id_issue]["title_text"]
     choice_issue = int(issue.get("choice"))
+    if choice_issue == -1:
+        return
     text_option = ""
     for x, y in origin[id_issue]["option_msg_id"][choice_issue].items():
         text_option = y
