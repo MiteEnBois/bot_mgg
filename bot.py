@@ -301,7 +301,8 @@ async def end_votes():
     backup()
     await channel.send(msg)
     xml = launch_issue(CURRENT_ID, winv)
-    await results(xml)
+    if winv != -1:
+        await results(xml)
     verif.stop()
 
 
