@@ -437,7 +437,10 @@ async def results(xml):
     if issue.find("RECLASSIFICATIONS") is not None and issue.find("RECLASSIFICATIONS").find("RECLASSIFY") is not None:
         msg += "**__Reclassification : __**\n"
         for r in issue.find("RECLASSIFICATIONS").findall("RECLASSIFY"):
-            rtype = LIST_RANK_ID[int(r.get("type"))]
+            if str(r.get("type")) == "govt":
+                rtype = "Government"
+            else:
+                rtype = LIST_RANK_ID[int(r.get("type"))]
             fro = r.find("FROM").text
             to = r.find("TO").text
             msg += f"{rtype} : from {fro} to {to}\n"
